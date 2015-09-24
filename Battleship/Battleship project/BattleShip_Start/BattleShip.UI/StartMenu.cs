@@ -17,11 +17,11 @@ namespace BattleShip.UI
                 player1Name = "Player1";
             }
 
-            Console.Write("Player 2, what is your name? : ");
-            string player2name = Console.ReadLine();
-            if (player2name == "")
+            Console.Write("\nPlayer 2, what is your name? : ");
+            string player2Name = Console.ReadLine();
+            if (player2Name == "")
             {
-                player2name = "Player2";
+                player2Name = "Player2";
             }
         }
     }
