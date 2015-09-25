@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BoardUI.cs" />
     <Compile Include="GameFlow.cs" />
     <Compile Include="LetterConverter.cs" />
     <Compile Include="Player.cs" />

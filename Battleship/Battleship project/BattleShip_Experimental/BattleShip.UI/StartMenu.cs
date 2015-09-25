@@ -26,7 +26,7 @@ namespace BattleShip.UI
             }
             Player player2 = new Player(player2name);
 
-            
+            Console.Clear();
         }
     }
 }

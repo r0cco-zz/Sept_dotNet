@@ -8,6 +8,8 @@ namespace BattleShip.UI
 {
     public class Player
     {
+        BoardUI PlayerSpecificBoard = new BoardUI();
+
         public string Name { get; set; }
 
         public Player(string Name)

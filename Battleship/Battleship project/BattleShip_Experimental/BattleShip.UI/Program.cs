@@ -10,9 +10,12 @@ namespace BattleShip.UI
     {
         static void Main(string[] args)
         {
+            GameFlow gf = new GameFlow();
 
             StartMenu.DisplayStart();
-            GameFlow.DisplayGameBoard();
+            BoardUI.DisplayGameBoard();
+            Console.Clear();
+            gf.Player1CarrierPlacement();
 
             Console.ReadLine();
         }

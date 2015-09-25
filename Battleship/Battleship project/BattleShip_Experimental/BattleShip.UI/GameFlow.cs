@@ -5,41 +5,45 @@ using System.Text;
 using System.Threading.Tasks;
 using BattleShip.BLL.GameLogic;
 using BattleShip.BLL.Requests;
+using BattleShip.BLL.Ships;
 
 namespace BattleShip.UI
 {
-    class GameFlow
+    internal class GameFlow
     {
         public Player player1 { get; set; }
         public Player player2 { get; set; }
 
-        Board _player1Board = new Board();
-        Board _player2Board = new Board();
+        private Board _player1Board = new Board();
+        private Board _player2Board = new Board();
 
-        int[,] boardarray = new int[10,10];
+        //private int[,] boardarray = new int[10, 10];
 
         //private bool _isPlayerOnesTurn;
 
-        static string[] aToJ = {" A "," B "," C "," D "," E "," F "," G "," H "," I "," J "};
-
-        public static void DisplayGameBoard()
+        // get player 1 to place a carrier
+        public void Player1CarrierPlacement()
         {
-            for (int i = 0; i < 10; i++)
-            {
-                Console.Write("   {0} ",aToJ[i]);
-            }
+            // display empty game board for player1
+            BoardUI.DisplayGameBoard();
 
-            Console.Write("\n");
+            // prompt player1 for coordinate entry (use letterconverter for xcoordinate)
 
-            for (int i = 0; i < 10; i++)
-            {
-                Console.Write("\n" + i);
-                for (int j = 0; j < 10; j++)
-                {
-                    Console.Write("   x   ");
-                }
-            }
+            Console.Write("{0}, pick a coordinate for your Carrier : ", "player1.name");
+            string player1CarrierPlacement = Console.ReadLine();
+            string xAsLetter = player1CarrierPlacement.Substring(0, 1);
+            int carrierX = LetterConverter.ConvertToNumber(xAsLetter);
+            int carrierY = int.Parse(player1CarrierPlacement.Substring(1));
+
+            Coordinate carrierPlacementCoord = new Coordinate(carrierX,carrierY);
+
+            Console.Clear();
+
+            // display game board with coordinate highlighted
+            BoardUI.DisplayGameBoard();
+             Console.ForegroundColor = ConsoleColor.Red;
+
+            // prompt player1 for carrier direction
         }
-
     }
 }
