@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Remoting.Messaging;
 using System.Text;
 using System.Threading.Tasks;
 using BattleShip.BLL.GameLogic;
@@ -22,28 +23,42 @@ namespace BattleShip.UI
         //private bool _isPlayerOnesTurn;
 
         // get player 1 to place a carrier
-        public void Player1CarrierPlacement()
+        public object Player1ShipPlacement()
         {
-            // display empty game board for player1
-            BoardUI.DisplayGameBoard();
+            // display empty game board for player1 (I put this in the loop)
 
             // prompt player1 for coordinate entry (use letterconverter for xcoordinate)
+            foreach (ShipType stype in Enum.GetValues(typeof(ShipType)))
+            {
+                BoardUI.DisplayGameBoard();
+                Console.Write("{0}, pick a coordinate for your {1} : ", "player1.Name", stype);
+                string shipplacecoord = Console.ReadLine();
+                string xAsLetter = shipplacecoord.Substring(0, 1);
+                int shipX = LetterConverter.ConvertToNumber(xAsLetter);
+                int shipY = int.Parse(shipplacecoord.Substring(1));
+                Coordinate shipcoord = new Coordinate(shipX,shipY);
 
-            Console.Write("{0}, pick a coordinate for your Carrier : ", "player1.name");
-            string player1CarrierPlacement = Console.ReadLine();
-            string xAsLetter = player1CarrierPlacement.Substring(0, 1);
-            int carrierX = LetterConverter.ConvertToNumber(xAsLetter);
-            int carrierY = int.Parse(player1CarrierPlacement.Substring(1));
+                // and then, asking for ship direction
+                Console.Write("{0}, Enter a direction for your {1} (up, down, left, right) : ", "player1.Name", stype);
+                string carrierPlacementDirection = Console.ReadLine();
+                switch (carrierPlacementDirection)
+                {
+                    case ("up"):
+                        ShipDirection.Up;
+                        break;
+                    case ("down"):
+                        ShipDirection.Down;
+                        break;
+                    case ("left"):
+                        ShipDirection.Left;
+                        break;
+                    case ("right"):
+                        ShipDirection.Right;
+                        break;
 
-            Coordinate carrierPlacementCoord = new Coordinate(carrierX,carrierY);
-
-            Console.Clear();
-
-            // display game board with coordinate highlighted
-            BoardUI.DisplayGameBoard();
-             Console.ForegroundColor = ConsoleColor.Red;
-
-            // prompt player1 for carrier direction
+                }
+            }
+            return 42;
         }
     }
 }
