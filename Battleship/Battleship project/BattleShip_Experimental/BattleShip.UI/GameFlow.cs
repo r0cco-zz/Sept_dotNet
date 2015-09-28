@@ -39,25 +39,51 @@ namespace BattleShip.UI
                 Coordinate shipcoord = new Coordinate(shipX, shipY);
 
                 // and then, asking for ship direction
-                Console.Write("{0}, Enter a direction for your {1} (up, down, left, right) : ", "player1.Name", stype);
+                Console.Write("{0}, Enter a direction (up, down, left, right) for your {1} (length {2}) : ",
+                    "player1.Name", stype, "ship length");
                 string shipPlacementDirection = Console.ReadLine();
-                if (shipPlacementDirection == "up")
+                if (shipPlacementDirection.ToLower() == "up")
                 {
-                    this.;
+                    PlaceShipRequest shipRequest = new PlaceShipRequest
+                    {
+                        Coordinate = shipcoord,
+                        Direction = ShipDirection.Up,
+                        ShipType = stype
+                    };
+                    _player1Board.PlaceShip(shipRequest);
                 }
-                if (shipPlacementDirection == "down")
+                if (shipPlacementDirection.ToLower() == "down")
                 {
-                    return ShipDirection.Down;
+                    PlaceShipRequest shipRequest = new PlaceShipRequest
+                    {
+                        Coordinate = shipcoord,
+                        Direction = ShipDirection.Down,
+                        ShipType = stype
+                    };
+                    _player1Board.PlaceShip(shipRequest);
                 }
-                if (shipPlacementDirection == "left")
+                if (shipPlacementDirection.ToLower() == "left")
                 {
-                    return ShipDirection.Left;
+                    PlaceShipRequest shipRequest = new PlaceShipRequest
+                    {
+                        Coordinate = shipcoord,
+                        Direction = ShipDirection.Left,
+                        ShipType = stype
+                    };
+                    _player1Board.PlaceShip(shipRequest);
                 }
-                if (shipPlacementDirection == "right")
+                if (shipPlacementDirection.ToLower() == "right")
                 {
-                    return ShipDirection.Right;
+                    PlaceShipRequest shipRequest = new PlaceShipRequest
+                    {
+                        Coordinate = shipcoord,
+                        Direction = ShipDirection.Right,
+                        ShipType = stype
+                    };
+                    _player1Board.PlaceShip(shipRequest);
                 }
-                return 42;
+
+                Console.Clear();
             }
             return 42;
         }

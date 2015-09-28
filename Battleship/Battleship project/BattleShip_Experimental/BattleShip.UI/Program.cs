@@ -14,7 +14,6 @@ namespace BattleShip.UI
             GameFlow gf = new GameFlow();
 
             StartMenu.DisplayStart();
-            BoardUI.DisplayGameBoard();
             Console.Clear();
             gf.Player1ShipPlacement();
             
