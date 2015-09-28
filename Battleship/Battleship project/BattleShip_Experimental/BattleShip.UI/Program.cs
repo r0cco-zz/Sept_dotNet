@@ -16,6 +16,7 @@ namespace BattleShip.UI
             StartMenu.DisplayStart();
             Console.Clear();
             gf.Player1ShipPlacement();
+            //gf.Player2ShipPlacement();
             
 
 

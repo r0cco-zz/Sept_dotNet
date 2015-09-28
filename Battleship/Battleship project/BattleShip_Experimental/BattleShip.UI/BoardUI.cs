@@ -4,17 +4,20 @@ using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
+using BattleShip.BLL.GameLogic;
 using BattleShip.BLL.Requests;
+using BattleShip.BLL.Ships;
 
 namespace BattleShip.UI
 {
     internal class BoardUI
     {
-        private static readonly Coordinate shipcoord;
         private static readonly string[] _aToJ = {" A ", " B ", " C ", " D ", " E ", " F ", " G ", " H ", " I ", " J "};
 
         public static void DisplayGameBoard()
         {
+            
+
             string Displaychar = "0";
             //get Displaychar to change based on ship placement & shot history
 
@@ -38,10 +41,10 @@ namespace BattleShip.UI
                 for (int j = 0; j < 10; j++)
                 {
                     Coordinate coord = new Coordinate(i, j);
-                    if (coord.Equals(shipcoord))
+                    /*if (coord.Equals(Ship.BoardPositions[Coordinate]))
                     {
                         Displaychar = "X";
-                    }
+                    }*/
                     Console.Write("  {0}    ", Displaychar);
                 }
                 Console.Write("\n  |");
@@ -53,16 +56,15 @@ namespace BattleShip.UI
                 for (int j = 0; j < 10; j++)
                 {
                     Coordinate coord = new Coordinate(i, j);
-                    if (coord.Equals(shipcoord))
+                    /*if (coord.Equals(shipcoord))
                     {
                         Displaychar = "X";
-                    }
+                    }*/
                     Console.Write("  {0}    ", Displaychar);
                 }
                 Console.WriteLine("\n  |");
 
             }
-            Console.ReadLine();
         }
     }
 }
