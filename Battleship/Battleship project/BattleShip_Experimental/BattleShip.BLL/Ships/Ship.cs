@@ -14,7 +14,7 @@ namespace BattleShip.BLL.Ships
 
         public Ship(ShipType shipType, int numberOfSlots)
         {
-            ShipType = shipType;
+            ShipType = shipType; // ShipType object, set to one of the values of the enum ship type
             _lifeRemaining = numberOfSlots;
             BoardPositions = new Coordinate[numberOfSlots];
         }

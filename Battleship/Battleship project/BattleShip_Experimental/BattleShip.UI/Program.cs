@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BattleShip.BLL.Requests;
 
 namespace BattleShip.UI
 {
@@ -16,6 +17,8 @@ namespace BattleShip.UI
             BoardUI.DisplayGameBoard();
             Console.Clear();
             gf.Player1ShipPlacement();
+            
+
 
             Console.ReadLine();
         }
