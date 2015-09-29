@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using BattleShip.BLL.GameLogic;
 using BattleShip.BLL.Requests;
+using BattleShip.BLL.Responses;
 using BattleShip.BLL.Ships;
 
 namespace BattleShip.UI
@@ -16,7 +17,7 @@ namespace BattleShip.UI
 
         public static void DisplayGameBoard()
         {
-            
+            Board newBoard = new Board();
 
             string Displaychar = "0";
             //get Displaychar to change based on ship placement & shot history
@@ -41,10 +42,22 @@ namespace BattleShip.UI
                 for (int j = 0; j < 10; j++)
                 {
                     Coordinate coord = new Coordinate(i, j);
-                    /*if (coord.Equals(Ship.BoardPositions[Coordinate]))
-                    {
-                        Displaychar = "X";
-                    }*/
+                    //if (newBoard.ShotHistory.ContainsValue(ShotHistory.Hit))
+                    //{
+                    //    Console.ForegroundColor = ConsoleColor.Red;
+                    //    Displaychar = "H";
+                    //    Console.ResetColor();
+                    //}
+                    //if (newBoard.ShotHistory.ContainsValue(ShotHistory.Miss))
+                    //{
+                    //    Console.ForegroundColor = ConsoleColor.Yellow;
+                    //    Displaychar = "M";
+                    //    Console.ResetColor();
+                    //}
+                    //if (newBoard.ShotHistory.ContainsValue(ShotHistory.Unknown))
+                    //{
+                    //    Displaychar = "X";
+                    //}
                     Console.Write("  {0}    ", Displaychar);
                 }
                 Console.Write("\n  |");

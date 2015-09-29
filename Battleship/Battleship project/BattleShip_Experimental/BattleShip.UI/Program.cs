@@ -7,18 +7,32 @@ using BattleShip.BLL.Requests;
 
 namespace BattleShip.UI
 {
-    class Program
+    internal class Program
     {
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
             GameFlow gf = new GameFlow();
 
             StartMenu.DisplayStart();
             Console.Clear();
-            gf.Player1ShipPlacement();
-            //gf.Player2ShipPlacement();
-            
 
+            Console.WriteLine("{0}, press enter to start placing ships.\n\n{1} LOOK AWAY!!", "player1.Name",
+                "player2.Name");
+            Console.ReadLine();
+            Console.Clear();
+
+            gf.Player1ShipPlacement();
+            Console.Clear();
+
+            Console.WriteLine("{0}, press enter to start placing ships.\n\n{1} LOOK AWAY!!", "player2.Name",
+                "player1.Name");
+            Console.ReadLine();
+            Console.Clear();
+
+            //gf.Player2ShipPlacement();
+            //Console.Clear();
+
+            //gf.GamePLay();
 
             Console.ReadLine();
         }
