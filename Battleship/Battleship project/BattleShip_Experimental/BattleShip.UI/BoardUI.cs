@@ -11,7 +11,7 @@ using BattleShip.BLL.Ships;
 
 namespace BattleShip.UI
 {
-    internal class BoardUI
+    class BoardUI
     {
         private static readonly string[] _aToJ = {" A ", " B ", " C ", " D ", " E ", " F ", " G ", " H ", " I ", " J "};
 
@@ -42,22 +42,22 @@ namespace BattleShip.UI
                 for (int j = 0; j < 10; j++)
                 {
                     Coordinate coord = new Coordinate(i, j);
-                    //if (newBoard.ShotHistory.ContainsValue(ShotHistory.Hit))
-                    //{
-                    //    Console.ForegroundColor = ConsoleColor.Red;
-                    //    Displaychar = "H";
-                    //    Console.ResetColor();
-                    //}
-                    //if (newBoard.ShotHistory.ContainsValue(ShotHistory.Miss))
-                    //{
-                    //    Console.ForegroundColor = ConsoleColor.Yellow;
-                    //    Displaychar = "M";
-                    //    Console.ResetColor();
-                    //}
-                    //if (newBoard.ShotHistory.ContainsValue(ShotHistory.Unknown))
-                    //{
-                    //    Displaychar = "X";
-                    //}
+                    if (newBoard.ShotHistory.ContainsValue(ShotHistory.Hit))
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Displaychar = "H";
+                        Console.ResetColor();
+                    }
+                    if (newBoard.ShotHistory.ContainsValue(ShotHistory.Miss))
+                    {
+                        Console.ForegroundColor = ConsoleColor.Yellow;
+                        Displaychar = "M";
+                        Console.ResetColor();
+                    }
+                    if (newBoard.ShotHistory.ContainsValue(ShotHistory.Unknown))
+                    {
+                        Displaychar = "X";
+                    }
                     Console.Write("  {0}    ", Displaychar);
                 }
                 Console.Write("\n  |");

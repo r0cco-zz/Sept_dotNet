@@ -32,11 +32,11 @@ namespace BattleShip.UI
             Console.ReadLine();
             Console.Clear();
 
-            //gf.Player2ShipPlacement();
-            //Console.Readline();
-            //Console.Clear();
+            gf.Player2ShipPlacement();
+            Console.ReadLine();
+            Console.Clear();
 
-            //gf.GamePLay();
+            gf.GamePlay();
 
             Console.ReadLine();
         }
