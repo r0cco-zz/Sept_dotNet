@@ -12,8 +12,11 @@ namespace BattleShip.UI
         private static void Main(string[] args)
         {
             GameFlow gf = new GameFlow();
+            StartMenu sm = new StartMenu();
+            //Player player1;
+            //Player player2;
 
-            StartMenu.DisplayStart();
+            sm.DisplayStart();
             Console.Clear();
 
             Console.WriteLine("{0}, press enter to start placing ships.\n\n{1} LOOK AWAY!!", "player1.Name",
@@ -30,6 +33,7 @@ namespace BattleShip.UI
             Console.Clear();
 
             //gf.Player2ShipPlacement();
+            //Console.Readline();
             //Console.Clear();
 
             //gf.GamePLay();

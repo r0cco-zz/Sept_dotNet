@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using BattleShip.BLL.GameLogic;
 using BattleShip.BLL.Requests;
+using BattleShip.BLL.Responses;
 using BattleShip.BLL.Ships;
 
 namespace BattleShip.UI
@@ -197,7 +198,32 @@ namespace BattleShip.UI
 
                 Coordinate shotcoord = new Coordinate(p1shotxasint, p1shoty);
 
-                var p1FireShotResponse = _player1Board.FireShot(shotcoord);
+                var p1FireShotResponse = _player2Board.FireShot(shotcoord);
+
+                if (p1FireShotResponse.ShotStatus == ShotStatus.Hit)
+                {
+                    
+                }
+                if (p1FireShotResponse.ShotStatus == ShotStatus.Duplicate)
+                {
+                    
+                }
+                if (p1FireShotResponse.ShotStatus == ShotStatus.HitAndSunk)
+                {
+                    
+                }
+                if (p1FireShotResponse.ShotStatus == ShotStatus.Invalid)
+                {
+                    
+                }
+                if (p1FireShotResponse.ShotStatus == ShotStatus.Miss)
+                {
+                    
+                }
+                if (p1FireShotResponse.ShotStatus == ShotStatus.Victory)
+                {
+                    
+                }
                 
             }
 

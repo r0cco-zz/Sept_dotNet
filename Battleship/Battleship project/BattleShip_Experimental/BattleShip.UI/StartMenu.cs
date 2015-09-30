@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -8,8 +9,9 @@ namespace BattleShip.UI
 {
     class StartMenu
     {
-        public static void DisplayStart()
+        public void DisplayStart()
         {
+
             Console.Write("Battleship!! \n\nPlayer 1, What is your name? : ");
             string player1Name = Console.ReadLine();
             if (player1Name == "")
@@ -19,12 +21,12 @@ namespace BattleShip.UI
             Player player1 = new Player(player1Name);
 
             Console.Write("Player 2, what is your name? : ");
-            string player2name = Console.ReadLine();
-            if (player2name == "")
+            string player2Name = Console.ReadLine();
+            if (player2Name == "")
             {
-                player2name = "Player2";
+                player2Name = "Player2";
             }
-            Player player2 = new Player(player2name);
+            Player player2 = new Player(player2Name);
 
             Console.Clear();
         }
