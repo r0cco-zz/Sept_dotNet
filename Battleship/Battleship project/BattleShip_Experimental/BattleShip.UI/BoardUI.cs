@@ -15,9 +15,9 @@ namespace BattleShip.UI
     {
         private static readonly string[] _aToJ = {" A ", " B ", " C ", " D ", " E ", " F ", " G ", " H ", " I ", " J "};
 
-        public static void DisplayGameBoard()
+        public static void DisplayGameBoard(Board playerBoard)
         {
-            Board newBoard = new Board();
+            //Board newBoard = new Board();
 
             string Displaychar = "0";
             //get Displaychar to change based on ship placement & shot history
@@ -36,44 +36,67 @@ namespace BattleShip.UI
 
             // loop to get all values (including row 10) for values to fill coordinate object (necessary?)
 
-            for (int i = 0; i < 9; i++)
+            for (int i = 0; i < 9; i++) //9
             {
                 Console.Write("\n" + (i + 1) + " |");
-                for (int j = 0; j < 10; j++)
+                for (int j = 0; j < 10; j++) //10
                 {
-                    Coordinate coord = new Coordinate(i, j);
-                    if (newBoard.ShotHistory.ContainsValue(ShotHistory.Hit))
+                    Coordinate coord = new Coordinate(j+1, i+1);
+                    if (playerBoard.ShotHistory.ContainsKey(coord) && playerBoard.ShotHistory[coord].Equals(ShotHistory.Hit)) //Make sure Shot is valid && is a hit.
                     {
                         Console.ForegroundColor = ConsoleColor.Red;
                         Displaychar = "H";
+                        Console.Write("  {0}    ", Displaychar);
+
                         Console.ResetColor();
+                        
                     }
-                    if (newBoard.ShotHistory.ContainsValue(ShotHistory.Miss))
+                    else if (playerBoard.ShotHistory.ContainsKey(coord) && playerBoard.ShotHistory[coord].Equals(ShotHistory.Miss))
                     {
                         Console.ForegroundColor = ConsoleColor.Yellow;
                         Displaychar = "M";
+                        Console.Write("  {0}    ", Displaychar);
+
                         Console.ResetColor();
                     }
-                    if (newBoard.ShotHistory.ContainsValue(ShotHistory.Unknown))
+                    else //(playerBoard.ShotHistory.ContainsKey(coord) && playerBoard.ShotHistory.ContainsValue(ShotHistory.Unknown))
                     {
-                        Displaychar = "X";
+                        Displaychar = " ";
+                        Console.Write("  {0}    ", Displaychar);
                     }
-                    Console.Write("  {0}    ", Displaychar);
                 }
                 Console.Write("\n  |");
             }
             // loop again for row 10 because of the extra char in the label
-            for (int i = 9; i < 10; i++)
+            for (int i = 9; i < 10; i++) //10
             {
                 Console.Write("\n" + (i + 1) + "|");
-                for (int j = 0; j < 10; j++)
+                for (int j = 0; j < 10; j++) //10
                 {
-                    Coordinate coord = new Coordinate(i, j);
-                    /*if (coord.Equals(shipcoord))
+                    Coordinate coord = new Coordinate(j+1, i+1);
+                    if (playerBoard.ShotHistory.ContainsKey(coord) && playerBoard.ShotHistory.ContainsValue(ShotHistory.Hit))
                     {
-                        Displaychar = "X";
-                    }*/
-                    Console.Write("  {0}    ", Displaychar);
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Displaychar = "H";
+                        Console.Write("  {0}    ", Displaychar);
+
+                        Console.ResetColor();
+
+                    }
+                    if (playerBoard.ShotHistory.ContainsKey(coord) && playerBoard.ShotHistory.ContainsValue(ShotHistory.Miss))
+                    {
+                        Console.ForegroundColor = ConsoleColor.Yellow;
+                        Displaychar = "M";
+                        Console.Write("  {0}    ", Displaychar);
+
+                        Console.ResetColor();
+                    }
+                    else //(playerBoard.ShotHistory.ContainsKey(coord) && playerBoard.ShotHistory.ContainsValue(ShotHistory.Unknown))
+                    {
+                        Displaychar = " ";
+                        Console.Write("  {0}    ", Displaychar);
+                    }
+                    //Console.Write("  {0}    ", Displaychar);
                 }
                 Console.WriteLine("\n  |");
 
