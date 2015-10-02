@@ -18,15 +18,17 @@ namespace BattleShip.UI
             {
                 player1Name = "Player1";
             }
-            Player player1 = new Player(player1Name);
 
+            //Player player1 = new Player(player1Name);
+            Player.Name1 = player1Name;
             Console.Write("Player 2, what is your name? : ");
             string player2Name = Console.ReadLine();
             if (player2Name == "")
             {
                 player2Name = "Player2";
             }
-            Player player2 = new Player(player2Name);
+            //Player player2 = new Player(player2Name);
+            Player.Name2 = player2Name;
 
             Console.Clear();
         }

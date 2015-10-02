@@ -6,15 +6,17 @@ using System.Threading.Tasks;
 
 namespace BattleShip.UI
 {
-    public class Player
+    public static class Player
     {
-        BoardUI PlayerSpecificBoard = new BoardUI();
+        //BoardUI PlayerSpecificBoard = new BoardUI();
 
-        public string Name { get; set; }
+        public static string Name1 { get; set; }
 
-        public Player(string Name)
-        {
-            this.Name = Name;
-        }
+        public static string Name2 { get; set; }
+
+        //public static Player(string Name)
+        //{
+        //    this.Name = Name;
+        //}
     }
 }

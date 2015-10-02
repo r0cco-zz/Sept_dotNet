@@ -19,16 +19,16 @@ namespace BattleShip.UI
             sm.DisplayStart();
             Console.Clear();
 
-            Console.WriteLine("{0}, press enter to start placing ships.\n\n{1} LOOK AWAY!!", "player1.Name",
-                "player2.Name");
+            Console.WriteLine("{0}, press enter to start placing ships.\n\n{1} LOOK AWAY!!", Player.Name1,
+                Player.Name2);
             Console.ReadLine();
             Console.Clear();
 
             gf.Player1ShipPlacement();
             Console.Clear();
 
-            Console.WriteLine("{0}, press enter to start placing ships.\n\n{1} LOOK AWAY!!", "player2.Name",
-                "player1.Name");
+            Console.WriteLine("{0}, press enter to start placing ships.\n\n{1} LOOK AWAY!!", Player.Name2,
+                Player.Name1);
             Console.ReadLine();
             Console.Clear();
 

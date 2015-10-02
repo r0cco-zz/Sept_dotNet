@@ -14,8 +14,8 @@ namespace BattleShip.UI
 {
     internal class GameFlow
     {
-        public Player player1 { get; set; }
-        public Player player2 { get; set; }
+        //public Player player1 { get; set; }
+        //public Player player2 { get; set; }
 
         private Board _player1Board = new Board();
         private Board _player2Board = new Board();
@@ -33,11 +33,11 @@ namespace BattleShip.UI
             // prompt player1 for coordinate entry (use letterconverter for xcoordinate)
             foreach (ShipType stype in Enum.GetValues(typeof(ShipType)))
             {
-                bool _isShipPlaced = false;
+                bool placementIsBad = false;
                 do
                 {
                     BoardUI.DisplayGameBoard(_player1Board);
-                    Console.Write("{0}, pick a coordinate for your {1} : ", "player1.Name", stype);
+                    Console.Write("{0}, pick a coordinate for your {1} : ", Player.Name1, stype);
                     string shipplacecoord = Console.ReadLine();
 
                     string xAsLetter = shipplacecoord.Substring(0, 1);
@@ -49,12 +49,9 @@ namespace BattleShip.UI
 
                     // and then, asking for ship direction
                     Console.Write("{0}, Enter a direction (up, down, left, right) for your {1} (length {2}) : ",
-                        "player1.Name", stype, "ship length");
+                        Player.Name1, stype, "ship length");
                     string shipPlacementDirection = Console.ReadLine();
                     //bool _isShipPlaced = false;
-                    IsDirectionValid CheckIfDirGood = new IsDirectionValid();
-
-                    CheckIfDirGood.TrueFalseDirection(shipPlacementDirection);
 
                     //do
                     //{
@@ -66,48 +63,55 @@ namespace BattleShip.UI
                             Direction = ShipDirection.Up,
                             ShipType = stype
                         };
-                        var WhereIsShip = _player1Board.PlaceShip(shipRequest);
                         //checks
-                        if (WhereIsShip == ShipPlacement.Overlap)
+                        var WhereIsShip = _player2Board.PlaceShip(shipRequest);
+                        //Refactor for class
+                        if (WhereIsShip == ShipPlacement.NotEnoughSpace)
                         {
-                            Console.Write("That overlaps another ship. Try again: ");
+                            Console.Clear();
+                            Console.WriteLine("Not enough space to place ship there, Try again!");
                         }
-                        else if (WhereIsShip == ShipPlacement.NotEnoughSpace)
+                        else if (WhereIsShip == ShipPlacement.Overlap)
                         {
-                            Console.Write("There is not enough space to place the ship there. Try again: ");
+                            Console.Clear();
+                            Console.WriteLine("You are overlapping another ship, try again!");
                         }
-                        //else _placementisbad = false;
+                        else if (WhereIsShip == ShipPlacement.Ok)
+                        {
+                            ShipCreator.CreateShip(stype);
+                            placementIsBad = true;
+                        }
 
-                        ShipCreator.CreateShip(stype);
-                        _isShipPlaced = true;
+                        //ShipCreator.CreateShip(stype);
                     }
 
                     else if (shipPlacementDirection.ToLower() == "down" || shipPlacementDirection.ToLower() == "d")
                     {
-
-                        Console.Write("Enter a direction up/down/left/right: ");
-                        shipPlacementDirection = Console.ReadLine();
                         PlaceShipRequest shipRequest = new PlaceShipRequest
                         {
                             Coordinate = shipcoord,
                             Direction = ShipDirection.Down,
                             ShipType = stype
                         };
-
-                        var WhereIsShip = _player1Board.PlaceShip(shipRequest);
                         //checks
 
-                        if (WhereIsShip == ShipPlacement.Overlap)
+                        var WhereIsShip = _player2Board.PlaceShip(shipRequest);
+                        //Refactor for class
+                        if (WhereIsShip == ShipPlacement.NotEnoughSpace)
                         {
-                            Console.Write("That overlaps another ship. Try again: ");
+                            Console.Clear();
+                            Console.WriteLine("Not enough space to place ship there, Try again!");
                         }
-                        else if (WhereIsShip == ShipPlacement.NotEnoughSpace)
+                        else if (WhereIsShip == ShipPlacement.Overlap)
                         {
-                            Console.Write("There is not enough space to place the ship there. Try again: ");
+                            Console.Clear();
+                            Console.WriteLine("You are overlapping another ship, try again!");
                         }
-                        //else _placementisbad = false;
-                        ShipCreator.CreateShip(stype);
-                        _isShipPlaced = true;
+                        else if (WhereIsShip == ShipPlacement.Ok)
+                        {
+                            ShipCreator.CreateShip(stype);
+                            placementIsBad = true;
+                        }
                     }
 
                     else if (shipPlacementDirection.ToLower() == "left" || shipPlacementDirection.ToLower() == "l")
@@ -119,20 +123,26 @@ namespace BattleShip.UI
                             ShipType = stype
                         };
 
-                        var WhereIsShip = _player1Board.PlaceShip(shipRequest);
+
                         //checks
-                        if (WhereIsShip == ShipPlacement.Overlap)
+                        var WhereIsShip = _player2Board.PlaceShip(shipRequest);
+                        //Refactor for class
+                        if (WhereIsShip == ShipPlacement.NotEnoughSpace)
                         {
-                            Console.Write("That overlaps another ship. Try again: ");
-                            //shipPlacementDirection = Console.ReadLine();
+                            Console.Clear();
+                            Console.WriteLine("Not enough space to place ship there, Try again!");
                         }
-                        else if (WhereIsShip == ShipPlacement.NotEnoughSpace)
+                        else if (WhereIsShip == ShipPlacement.Overlap)
                         {
-                            Console.Write("There is not enough space to place the ship there. Try again: ");
-                            //shipPlacementDirection = Console.ReadLine();
+                            Console.Clear();
+                            Console.WriteLine("You are overlapping another ship, try again!");
                         }
-                        ShipCreator.CreateShip(stype);
-                        _isShipPlaced = true;
+                        else if (WhereIsShip == ShipPlacement.Ok)
+                        {
+                            ShipCreator.CreateShip(stype);
+                            placementIsBad = true;
+                        }
+                        //ShipCreator.CreateShip(stype);
                     }
 
                     else if (shipPlacementDirection.ToLower() == "right" || shipPlacementDirection.ToLower() == "r")
@@ -144,22 +154,27 @@ namespace BattleShip.UI
                             ShipType = stype
                         };
 
-                        var WhereIsShip = _player1Board.PlaceShip(shipRequest);
                         //checks
-                        if (WhereIsShip == ShipPlacement.Overlap)
+                        var WhereIsShip = _player2Board.PlaceShip(shipRequest);
+                        //Refactor for class
+                        if (WhereIsShip == ShipPlacement.NotEnoughSpace)
                         {
-                            Console.Write("That overlaps another ship. Try again: ");
-                            shipPlacementDirection = Console.ReadLine();
+                            Console.Clear();
+                            Console.WriteLine("Not enough space to place ship there, Try again!");
                         }
-                        else if (WhereIsShip == ShipPlacement.NotEnoughSpace)
+                        else if (WhereIsShip == ShipPlacement.Overlap)
                         {
-                            Console.Write("There is not enough space to place the ship there. Try again: ");
-                            shipPlacementDirection = Console.ReadLine();
+                            Console.Clear();
+                            Console.WriteLine("You are overlapping another ship, try again!");
                         }
-                        ShipCreator.CreateShip(stype);
-                        _isShipPlaced = true;
+                        else if (WhereIsShip == ShipPlacement.Ok)
+                        {
+                            ShipCreator.CreateShip(stype);
+                            placementIsBad = true;
+                        }
+                        //ShipCreator.CreateShip(stype);
                     }
-                } while (_isShipPlaced == false);
+                } while (placementIsBad == false);
                 Console.Clear();
             }
         }
@@ -172,74 +187,149 @@ namespace BattleShip.UI
             // prompt player1 for coordinate entry (use letterconverter for xcoordinate)
             foreach (ShipType stype in Enum.GetValues(typeof(ShipType)))
             {
-                BoardUI.DisplayGameBoard(_player2Board);
-                Console.Write("{0}, pick a coordinate for your {1} : ", "player2.Name", stype);
-                string shipplacecoord = Console.ReadLine();
-
-                string xAsLetter = shipplacecoord.Substring(0, 1);
-                int shipX = LetterConverter.ConvertToNumber(xAsLetter); //Convert 1st char from player input to int.
-                int shipY = int.Parse(shipplacecoord.Substring(1)); //Assign 2nd coord.
-
-                Coordinate shipcoord = new Coordinate(shipX, shipY);
-
-                // and then, asking for ship direction
-                Console.Write("{0}, Enter a direction (up, down, left, right) for your {1} (length {2}) : ",
-                    "player2.Name", stype, "ship length");
-                string shipPlacementDirection = Console.ReadLine();
-
-                if (shipPlacementDirection.ToLower() == "up")
+                bool placementIsBad = false;
+                do
                 {
-                    PlaceShipRequest shipRequest = new PlaceShipRequest
-                    {
-                        Coordinate = shipcoord,
-                        Direction = ShipDirection.Up,
-                        ShipType = stype
-                    };
-                    _player2Board.PlaceShip(shipRequest);
-                    //checks
-                    ShipCreator.CreateShip(stype);
-                }
+                    BoardUI.DisplayGameBoard(_player2Board);
+                    Console.Write("{0}, pick a coordinate for your {1} : ", Player.Name2, stype);
+                    string shipplacecoord = Console.ReadLine();
 
-                if (shipPlacementDirection.ToLower() == "down")
-                {
-                    PlaceShipRequest shipRequest = new PlaceShipRequest
-                    {
-                        Coordinate = shipcoord,
-                        Direction = ShipDirection.Down,
-                        ShipType = stype
-                    };
-                    _player2Board.PlaceShip(shipRequest);
-                    //checks
-                    ShipCreator.CreateShip(stype);
-                }
+                    string xAsLetter = shipplacecoord.Substring(0, 1);
+                    int shipX = LetterConverter.ConvertToNumber(xAsLetter); //Convert 1st char from player input to int.
+                    int shipY = int.Parse(shipplacecoord.Substring(1)); //Assign 2nd coord.
 
-                if (shipPlacementDirection.ToLower() == "left")
-                {
-                    PlaceShipRequest shipRequest = new PlaceShipRequest
-                    {
-                        Coordinate = shipcoord,
-                        Direction = ShipDirection.Left,
-                        ShipType = stype
-                    };
-                    _player2Board.PlaceShip(shipRequest);
-                    //checks
-                    ShipCreator.CreateShip(stype);
-                }
+                    Coordinate shipcoord = new Coordinate(shipX, shipY);
 
-                if (shipPlacementDirection.ToLower() == "right")
-                {
-                    PlaceShipRequest shipRequest = new PlaceShipRequest
+                    // and then, asking for ship direction
+                    Console.Write("{0}, Enter a direction (up, down, left, right) for your {1} (length {2}) : ",
+                        Player.Name2, stype, "ship length");
+                    string shipPlacementDirection = Console.ReadLine();
+
+                    if (shipPlacementDirection.ToLower() == "up" || shipPlacementDirection.ToLower() == "u")
                     {
-                        Coordinate = shipcoord,
-                        Direction = ShipDirection.Right,
-                        ShipType = stype
-                    };
-                    _player2Board.PlaceShip(shipRequest);
-                    //checks
-                    ShipCreator.CreateShip(stype);
-                }
+                        PlaceShipRequest shipRequest = new PlaceShipRequest
+                        {
+                            Coordinate = shipcoord,
+                            Direction = ShipDirection.Up,
+                            ShipType = stype
+                        };
+                        var WhereIsShip =_player2Board.PlaceShip(shipRequest);
+                        //Refactor for class
+                        if (WhereIsShip == ShipPlacement.NotEnoughSpace)
+                        {
+                            Console.Clear();
+                            Console.WriteLine("Not enough space to place ship there, Try again!");
+                        }
+                        else if (WhereIsShip == ShipPlacement.Overlap)
+                        {
+                            Console.Clear();
+                            Console.WriteLine("You are overlapping another ship, try again!");
+                        }
+                        else if (WhereIsShip == ShipPlacement.Ok)
+                        {
+                            ShipCreator.CreateShip(stype);
+                            placementIsBad = true;
+                        }
+
+                        //checks
+                        //ShipCreator.CreateShip(stype);
+                    }
+
+                    if (shipPlacementDirection.ToLower() == "down" || shipPlacementDirection.ToLower() == "d")
+                    {
+                        PlaceShipRequest shipRequest = new PlaceShipRequest
+                        {
+                            Coordinate = shipcoord,
+                            Direction = ShipDirection.Down,
+                            ShipType = stype
+                        };
+                        _player2Board.PlaceShip(shipRequest);
+                        //checks
+                        var WhereIsShip = _player2Board.PlaceShip(shipRequest);
+                        //Refactor for class
+                        if (WhereIsShip == ShipPlacement.NotEnoughSpace)
+                        {
+                            Console.Clear();
+                            Console.WriteLine("Not enough space to place ship there, Try again!");
+                        }
+                        else if (WhereIsShip == ShipPlacement.Overlap)
+                        {
+                            Console.Clear();
+                            Console.WriteLine("You are overlapping another ship, try again!");
+                        }
+                        else if (WhereIsShip == ShipPlacement.Ok)
+                        {
+                            ShipCreator.CreateShip(stype);
+                            placementIsBad = true;
+                        }
+                        //ShipCreator.CreateShip(stype);
+                    }
+
+                    if (shipPlacementDirection.ToLower() == "left" || shipPlacementDirection.ToLower() == "l")
+                    {
+                        PlaceShipRequest shipRequest = new PlaceShipRequest
+                        {
+                            Coordinate = shipcoord,
+                            Direction = ShipDirection.Left,
+                            ShipType = stype
+                        };
+                        _player2Board.PlaceShip(shipRequest);
+                        //checks
+                        var WhereIsShip = _player2Board.PlaceShip(shipRequest);
+                        //Refactor for class
+                        if (WhereIsShip == ShipPlacement.NotEnoughSpace)
+                        {
+                            Console.Clear();
+                            Console.WriteLine("Not enough space to place ship there, Try again!");
+                        }
+                        else if (WhereIsShip == ShipPlacement.Overlap)
+                        {
+                            Console.Clear();
+                            Console.WriteLine("You are overlapping another ship, try again!");
+                        }
+                        else if (WhereIsShip == ShipPlacement.Ok)
+                        {
+                            ShipCreator.CreateShip(stype);
+                            placementIsBad = true;
+                        }
+                        //ShipCreator.CreateShip(stype);
+                    }
+
+                    if (shipPlacementDirection.ToLower() == "right" || shipPlacementDirection.ToLower() == "r")
+                    {
+                        PlaceShipRequest shipRequest = new PlaceShipRequest
+                        {
+                            Coordinate = shipcoord,
+                            Direction = ShipDirection.Right,
+                            ShipType = stype
+                        };
+                        _player2Board.PlaceShip(shipRequest);
+                        //checks
+                        var WhereIsShip = _player2Board.PlaceShip(shipRequest);
+                        //Refactor for class
+                        if (WhereIsShip == ShipPlacement.NotEnoughSpace)
+                        {
+                            Console.Clear();
+                            Console.WriteLine("Not enough space to place ship there, Try again!");
+                        }
+                        else if (WhereIsShip == ShipPlacement.Overlap)
+                        {
+                            Console.Clear();
+                            Console.WriteLine("You are overlapping another ship, try again!");
+                        }
+                        else if (WhereIsShip == ShipPlacement.Ok)
+                        {
+                            ShipCreator.CreateShip(stype);
+                            placementIsBad = true;
+                        }
+                        //ShipCreator.CreateShip(stype);
+                    }
+
+                } while (placementIsBad == false);
 
                 Console.Clear();
+
+
             }
         }
 
@@ -254,7 +344,7 @@ namespace BattleShip.UI
                     string p1shot = "";//checks
 
 
-                    Console.Write("{0}, Take a shot! : ", "player1.name");
+                    Console.Write("{0}, Take a shot! : ", Player.Name1);
                     p1shot = Console.ReadLine();
 
                     string p1shotx = p1shot.Substring(0, 1);
@@ -267,7 +357,7 @@ namespace BattleShip.UI
 
                     if (p1FireShotResponse.ShotStatus == ShotStatus.Hit)
                     {
-                        Console.WriteLine("Hit! (Press enter)");
+                        Console.WriteLine("You hit something! (Press enter)");
                         Console.ReadLine();
                         Console.Clear();
                         _isPlayerOnesTurn = false;
@@ -280,7 +370,7 @@ namespace BattleShip.UI
                     }
                     if (p1FireShotResponse.ShotStatus == ShotStatus.HitAndSunk)
                     {
-                        Console.WriteLine("Hit! You sunk the " + p1FireShotResponse.ShipImpacted + " (Press enter)");
+                        Console.WriteLine("Hit! You sunk your opponent's " + p1FireShotResponse.ShipImpacted + " (Press enter)");
                         Console.ReadLine();
                         Console.Clear();
                         _isPlayerOnesTurn = false;
@@ -293,14 +383,14 @@ namespace BattleShip.UI
                     }
                     if (p1FireShotResponse.ShotStatus == ShotStatus.Miss)
                     {
-                        Console.WriteLine("Miss! (Press enter)");
+                        Console.WriteLine("Your projectile splashes into the ocean, you missed! (Press enter)");
                         Console.ReadLine();
                         Console.Clear();
                         _isPlayerOnesTurn = false;
                     }
                     if (p1FireShotResponse.ShotStatus == ShotStatus.Victory)
                     {
-                        Console.WriteLine("Congrats, you won!! (Press enter)");
+                        Console.WriteLine("You have sunk all your opponent's ships, you win! (Press enter)");
                         Console.ReadLine();
                         Console.Clear();
                         _gameOver = true;
@@ -316,7 +406,7 @@ namespace BattleShip.UI
                     string p2shot = "";
                     //checks
                     
-                        Console.Write("{0}, Take a shot! : ", "player2.name");
+                        Console.Write("{0}, Take a shot! : ", Player.Name2);
                         p2shot = Console.ReadLine();
 
                     string p2shotx = p2shot.Substring(0, 1);
@@ -370,6 +460,21 @@ namespace BattleShip.UI
                     }
 
                 }
+            }
+            Console.Clear();
+            Console.Write("Play again? y/n Or Quit: ");
+            string playAgain = Console.ReadLine();
+
+            if (playAgain == "y" || playAgain == "yes")
+            {
+                NewGame goAgain = new NewGame();
+
+                goAgain.StartNewGame();
+            }
+            else
+            {
+                Console.WriteLine("Thanks for playing! Press Enter to quit.");
+                Console.ReadLine();
             }
         }
     }
