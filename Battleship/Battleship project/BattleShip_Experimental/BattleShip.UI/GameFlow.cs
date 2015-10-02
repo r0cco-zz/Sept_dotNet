@@ -8,6 +8,7 @@ using BattleShip.BLL.GameLogic;
 using BattleShip.BLL.Requests;
 using BattleShip.BLL.Responses;
 using BattleShip.BLL.Ships;
+using BattleShip.UI.GameFlowResponses;
 
 namespace BattleShip.UI
 {
@@ -45,11 +46,15 @@ namespace BattleShip.UI
 
                     Coordinate shipcoord = new Coordinate(shipX, shipY);
 
+
                     // and then, asking for ship direction
                     Console.Write("{0}, Enter a direction (up, down, left, right) for your {1} (length {2}) : ",
                         "player1.Name", stype, "ship length");
                     string shipPlacementDirection = Console.ReadLine();
                     //bool _isShipPlaced = false;
+                    IsDirectionValid CheckIfDirGood = new IsDirectionValid();
+
+                    CheckIfDirGood.TrueFalseDirection(shipPlacementDirection);
 
                     //do
                     //{
@@ -79,32 +84,30 @@ namespace BattleShip.UI
 
                     else if (shipPlacementDirection.ToLower() == "down" || shipPlacementDirection.ToLower() == "d")
                     {
-                        bool _placementisbad = true;
-                        while (_placementisbad)
-                        {
-                            Console.Write("Enter a direction up/down/left/right: ");
-                            shipPlacementDirection = Console.ReadLine();
-                            PlaceShipRequest shipRequest = new PlaceShipRequest
-                            {
-                                Coordinate = shipcoord,
-                                Direction = ShipDirection.Down,
-                                ShipType = stype
-                            };
 
-                            var WhereIsShip = _player1Board.PlaceShip(shipRequest);
-                            //checks
-                            if (WhereIsShip == ShipPlacement.Overlap)
-                            {
-                                Console.Write("That overlaps another ship. Try again: ");
-                            }
-                            else if (WhereIsShip == ShipPlacement.NotEnoughSpace)
-                            {
-                                Console.Write("There is not enough space to place the ship there. Try again: ");
-                            }
-                            else _placementisbad = false;
-                            ShipCreator.CreateShip(stype);
-                            _isShipPlaced = true;
+                        Console.Write("Enter a direction up/down/left/right: ");
+                        shipPlacementDirection = Console.ReadLine();
+                        PlaceShipRequest shipRequest = new PlaceShipRequest
+                        {
+                            Coordinate = shipcoord,
+                            Direction = ShipDirection.Down,
+                            ShipType = stype
+                        };
+
+                        var WhereIsShip = _player1Board.PlaceShip(shipRequest);
+                        //checks
+
+                        if (WhereIsShip == ShipPlacement.Overlap)
+                        {
+                            Console.Write("That overlaps another ship. Try again: ");
                         }
+                        else if (WhereIsShip == ShipPlacement.NotEnoughSpace)
+                        {
+                            Console.Write("There is not enough space to place the ship there. Try again: ");
+                        }
+                        //else _placementisbad = false;
+                        ShipCreator.CreateShip(stype);
+                        _isShipPlaced = true;
                     }
 
                     else if (shipPlacementDirection.ToLower() == "left" || shipPlacementDirection.ToLower() == "l")
@@ -155,11 +158,6 @@ namespace BattleShip.UI
                         }
                         ShipCreator.CreateShip(stype);
                         _isShipPlaced = true;
-                    }
-                    else
-                    {
-                        Console.Write("Invalid direction. Try again (up, down, left, right): ");
-                        shipPlacementDirection = Console.ReadLine();
                     }
                 } while (_isShipPlaced == false);
                 Console.Clear();
@@ -250,27 +248,14 @@ namespace BattleShip.UI
         {
             while (!_gameOver)
             {
-                while (_isPlayerOnesTurn)
+                while (_isPlayerOnesTurn && _gameOver == false)
                 {
                     BoardUI.DisplayGameBoard(_player2Board);
-                    string p1shot = "";
-
-                    //checks
-                    //Scott changes
-                    do
-                    {
-                        Console.Write("{0}, Take a shot! : ", "player1.name");
-                        p1shot = Console.ReadLine();
-
-                        if (p1shot.Length == 0)
-                        {
-                            Console.Write("You didn't enter anything. Try again: ");
-                            p1shot = Console.ReadLine();
-                        }
-                    } while (p1shot.Length == 0);
-                    //Scott changes
+                    string p1shot = "";//checks
 
 
+                    Console.Write("{0}, Take a shot! : ", "player1.name");
+                    p1shot = Console.ReadLine();
 
                     string p1shotx = p1shot.Substring(0, 1);
                     int p1shotxasint = LetterConverter.ConvertToNumber(p1shotx);
@@ -319,28 +304,20 @@ namespace BattleShip.UI
                         Console.ReadLine();
                         Console.Clear();
                         _gameOver = true;
+                        break;
                     }
 
                 }
 
-                while (!_isPlayerOnesTurn)
+                while (!_isPlayerOnesTurn && _gameOver == false)
                 {
                     BoardUI.DisplayGameBoard(_player1Board);
 
                     string p2shot = "";
                     //checks
-                    //Scott Changes
-                    do
-                    {
+                    
                         Console.Write("{0}, Take a shot! : ", "player2.name");
                         p2shot = Console.ReadLine();
-
-                        if (p2shot.Length == 0)
-                        {
-                            Console.Write("You didn't enter anything. Try again: ");
-                            p2shot = Console.ReadLine();
-                        }
-                    } while (p2shot.Length == 0);
 
                     string p2shotx = p2shot.Substring(0, 1);
                     int p2shotxasint = LetterConverter.ConvertToNumber(p2shotx);

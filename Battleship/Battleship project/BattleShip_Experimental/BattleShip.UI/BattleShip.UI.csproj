@@ -43,6 +43,7 @@
   <ItemGroup>
     <Compile Include="BoardUI.cs" />
     <Compile Include="GameFlow.cs" />
+    <Compile Include="GameFlowResponses\IsDirectionValid.cs" />
     <Compile Include="LetterConverter.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="Program.cs" />
