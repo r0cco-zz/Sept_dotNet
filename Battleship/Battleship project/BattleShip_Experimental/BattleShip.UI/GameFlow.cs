@@ -64,7 +64,7 @@ namespace BattleShip.UI
                             ShipType = stype
                         };
                         //checks
-                        var WhereIsShip = _player2Board.PlaceShip(shipRequest);
+                        var WhereIsShip = _player1Board.PlaceShip(shipRequest);
                         //Refactor for class
                         if (WhereIsShip == ShipPlacement.NotEnoughSpace)
                         {
@@ -95,7 +95,7 @@ namespace BattleShip.UI
                         };
                         //checks
 
-                        var WhereIsShip = _player2Board.PlaceShip(shipRequest);
+                        var WhereIsShip = _player1Board.PlaceShip(shipRequest);
                         //Refactor for class
                         if (WhereIsShip == ShipPlacement.NotEnoughSpace)
                         {
@@ -125,7 +125,7 @@ namespace BattleShip.UI
 
 
                         //checks
-                        var WhereIsShip = _player2Board.PlaceShip(shipRequest);
+                        var WhereIsShip = _player1Board.PlaceShip(shipRequest);
                         //Refactor for class
                         if (WhereIsShip == ShipPlacement.NotEnoughSpace)
                         {
@@ -155,7 +155,7 @@ namespace BattleShip.UI
                         };
 
                         //checks
-                        var WhereIsShip = _player2Board.PlaceShip(shipRequest);
+                        var WhereIsShip = _player1Board.PlaceShip(shipRequest);
                         //Refactor for class
                         if (WhereIsShip == ShipPlacement.NotEnoughSpace)
                         {
@@ -243,7 +243,7 @@ namespace BattleShip.UI
                             Direction = ShipDirection.Down,
                             ShipType = stype
                         };
-                        _player2Board.PlaceShip(shipRequest);
+                        //_player2Board.PlaceShip(shipRequest);
                         //checks
                         var WhereIsShip = _player2Board.PlaceShip(shipRequest);
                         //Refactor for class
@@ -273,7 +273,7 @@ namespace BattleShip.UI
                             Direction = ShipDirection.Left,
                             ShipType = stype
                         };
-                        _player2Board.PlaceShip(shipRequest);
+                        //_player2Board.PlaceShip(shipRequest);
                         //checks
                         var WhereIsShip = _player2Board.PlaceShip(shipRequest);
                         //Refactor for class
@@ -303,7 +303,7 @@ namespace BattleShip.UI
                             Direction = ShipDirection.Right,
                             ShipType = stype
                         };
-                        _player2Board.PlaceShip(shipRequest);
+                        //_player2Board.PlaceShip(shipRequest);
                         //checks
                         var WhereIsShip = _player2Board.PlaceShip(shipRequest);
                         //Refactor for class
