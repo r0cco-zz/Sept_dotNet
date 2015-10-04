@@ -20,6 +20,9 @@ namespace BattleShip.UI
         private Board _player1Board = new Board();
         private Board _player2Board = new Board();
 
+        //added new board objects for ship display
+        private Board.ShipBoard 
+
         //private int[,] boardarray = new int[10, 10];
 
         private bool _isPlayerOnesTurn = true;

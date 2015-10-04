@@ -9,12 +9,19 @@ namespace BattleShip.BLL.GameLogic
 {
     public class Board
     {
+        //trying out a ship dictionary here...
+        public Dictionary<Coordinate, ShipType> ShipHistory;
+        //end changes
+
         public Dictionary<Coordinate, ShotHistory> ShotHistory;
         private Ship[] _ships;
         private int _currentShipIndex;
 
         public Board()
         {
+            //added dictionary to Board object
+            ShipHistory = new Dictionary<Coordinate, ShipType>();
+
             ShotHistory = new Dictionary<Coordinate, ShotHistory>();
             _ships = new Ship[5];
             _currentShipIndex = 0;
@@ -136,6 +143,8 @@ namespace BattleShip.BLL.GameLogic
                     return ShipPlacement.Overlap;
 
                 newShip.BoardPositions[positionIndex] = currentCoordinate;
+                //adding dictionary entry for coordinate as ship is being built
+                ShipHistory.Add(currentCoordinate, newShip.ShipType);
                 positionIndex++;
             }
 
@@ -160,6 +169,8 @@ namespace BattleShip.BLL.GameLogic
                     return ShipPlacement.Overlap;
 
                 newShip.BoardPositions[positionIndex] = currentCoordinate;
+                //adding dictionary entry for coordinate as ship is being built
+                ShipHistory.Add(currentCoordinate, newShip.ShipType);
                 positionIndex++;
             }
 
@@ -183,7 +194,9 @@ namespace BattleShip.BLL.GameLogic
                 if (OverlapsAnotherShip(currentCoordinate))
                     return ShipPlacement.Overlap;
 
-                newShip.BoardPositions[positionIndex] = currentCoordinate; 
+                newShip.BoardPositions[positionIndex] = currentCoordinate;
+                //adding dictionary entry for coordinate as ship is being built
+                ShipHistory.Add(currentCoordinate, newShip.ShipType);
                 positionIndex++;
             }
 
@@ -207,6 +220,8 @@ namespace BattleShip.BLL.GameLogic
                     return ShipPlacement.Overlap;
 
                 newShip.BoardPositions[positionIndex] = currentCoordinate;
+                //adding dictionary entry for coordinate as ship is being built
+                ShipHistory.Add(currentCoordinate, newShip.ShipType);
                 positionIndex++;
             }
 
