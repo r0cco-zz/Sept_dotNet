@@ -38,7 +38,6 @@ namespace BattleShip.UI
             Console.Clear();
 
             gf.Player2ShipPlacement();
-            Console.ReadLine();
             Console.Clear();
 
             gf.GamePlay();
