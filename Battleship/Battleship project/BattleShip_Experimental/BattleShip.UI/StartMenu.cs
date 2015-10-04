@@ -11,8 +11,16 @@ namespace BattleShip.UI
     {
         public void DisplayStart()
         {
+            //Splash screen
+            Console.WriteLine("\n\n\n\n\n\n");
+            Console.WriteLine(String.Format("{0," + ((Console.WindowWidth / 2) + ("Welcome to Battleship!".Length / 2 + 1)) + "}", "Welcome to Battleship! \n\n"));
 
-            Console.Write("Battleship!! \n\nPlayer 1, What is your name? : ");
+            Console.Write(String.Format("{0," + ((Console.WindowWidth / 2) + ("Press (Enter) to continue:".Length / 2 - 2)) + "}", "Press (Enter) to continue:"));
+            Console.ReadLine();
+            Console.Clear();
+            //Splash screen
+
+            Console.WriteLine("Player 1, What is your name? : ");
             string player1Name = Console.ReadLine();
             if (player1Name == "")
             {

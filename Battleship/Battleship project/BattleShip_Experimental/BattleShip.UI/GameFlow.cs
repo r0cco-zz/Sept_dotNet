@@ -31,6 +31,11 @@ namespace BattleShip.UI
         // get player 1 to place ships
         public void Player1ShipPlacement()
         {
+
+            //TODO Refactoring - Implement Generic PlayerShipPlacement. 
+                //TODO HowTo: Create class to accept current player turn. Execute, return done. If player is player 2, move on.
+            //TODO Create additional classes to simplify workflow: PlaceShipRequest workflow.
+
             // display empty game board for player1 (I put this in the loop)
 
             // prompt player1 for coordinate entry (use letterconverter for xcoordinate)
@@ -49,16 +54,17 @@ namespace BattleShip.UI
 
                     Coordinate shipcoord = new Coordinate(shipX, shipY);
 
-
                     // and then, asking for ship direction
                     Console.Write("{0}, Enter a direction (up, down, left, right) for your {1} (length {2}) : ",
                         Player.Name1, stype, "ship length");
                     string shipPlacementDirection = Console.ReadLine();
                     //bool _isShipPlaced = false;
 
-                    //do
-                    //{
-                    if (shipPlacementDirection.ToLower() == "up" || shipPlacementDirection.ToLower() == "u")
+                    IsDirectionValid IsDirInputValid = new IsDirectionValid();
+
+                    int InputResponse = IsDirInputValid.WhatIsDirection(shipPlacementDirection);
+                    
+                    if (InputResponse == 1)
                     {
                         PlaceShipRequest shipRequest = new PlaceShipRequest
                         {
@@ -88,7 +94,7 @@ namespace BattleShip.UI
                         //ShipCreator.CreateShip(stype);
                     }
 
-                    else if (shipPlacementDirection.ToLower() == "down" || shipPlacementDirection.ToLower() == "d")
+                    else if (InputResponse == 2)
                     {
                         PlaceShipRequest shipRequest = new PlaceShipRequest
                         {
@@ -117,7 +123,7 @@ namespace BattleShip.UI
                         }
                     }
 
-                    else if (shipPlacementDirection.ToLower() == "left" || shipPlacementDirection.ToLower() == "l")
+                    else if (InputResponse == 3)
                     {
                         PlaceShipRequest shipRequest = new PlaceShipRequest
                         {
@@ -125,7 +131,6 @@ namespace BattleShip.UI
                             Direction = ShipDirection.Left,
                             ShipType = stype
                         };
-
 
                         //checks
                         var WhereIsShip = _player1Board.PlaceShip(shipRequest);
@@ -148,7 +153,7 @@ namespace BattleShip.UI
                         //ShipCreator.CreateShip(stype);
                     }
 
-                    else if (shipPlacementDirection.ToLower() == "right" || shipPlacementDirection.ToLower() == "r")
+                    else if (InputResponse == 4)
                     {
                         PlaceShipRequest shipRequest = new PlaceShipRequest
                         {
@@ -208,7 +213,11 @@ namespace BattleShip.UI
                         Player.Name2, stype, "ship length");
                     string shipPlacementDirection = Console.ReadLine();
 
-                    if (shipPlacementDirection.ToLower() == "up" || shipPlacementDirection.ToLower() == "u")
+                    IsDirectionValid IsDirInputValid = new IsDirectionValid();
+
+                    int InputResponse = IsDirInputValid.WhatIsDirection(shipPlacementDirection);
+
+                    if (InputResponse == 1)
                     {
                         PlaceShipRequest shipRequest = new PlaceShipRequest
                         {
@@ -238,7 +247,7 @@ namespace BattleShip.UI
                         //ShipCreator.CreateShip(stype);
                     }
 
-                    if (shipPlacementDirection.ToLower() == "down" || shipPlacementDirection.ToLower() == "d")
+                    if (InputResponse == 2)
                     {
                         PlaceShipRequest shipRequest = new PlaceShipRequest
                         {
@@ -246,7 +255,6 @@ namespace BattleShip.UI
                             Direction = ShipDirection.Down,
                             ShipType = stype
                         };
-                        //_player2Board.PlaceShip(shipRequest);
                         //checks
                         var WhereIsShip = _player2Board.PlaceShip(shipRequest);
                         //Refactor for class
@@ -268,7 +276,7 @@ namespace BattleShip.UI
                         //ShipCreator.CreateShip(stype);
                     }
 
-                    if (shipPlacementDirection.ToLower() == "left" || shipPlacementDirection.ToLower() == "l")
+                    if (InputResponse == 3)
                     {
                         PlaceShipRequest shipRequest = new PlaceShipRequest
                         {
@@ -276,7 +284,6 @@ namespace BattleShip.UI
                             Direction = ShipDirection.Left,
                             ShipType = stype
                         };
-                        //_player2Board.PlaceShip(shipRequest);
                         //checks
                         var WhereIsShip = _player2Board.PlaceShip(shipRequest);
                         //Refactor for class
@@ -298,7 +305,7 @@ namespace BattleShip.UI
                         //ShipCreator.CreateShip(stype);
                     }
 
-                    if (shipPlacementDirection.ToLower() == "right" || shipPlacementDirection.ToLower() == "r")
+                    if (InputResponse == 4)
                     {
                         PlaceShipRequest shipRequest = new PlaceShipRequest
                         {
@@ -306,7 +313,6 @@ namespace BattleShip.UI
                             Direction = ShipDirection.Right,
                             ShipType = stype
                         };
-                        //_player2Board.PlaceShip(shipRequest);
                         //checks
                         var WhereIsShip = _player2Board.PlaceShip(shipRequest);
                         //Refactor for class
@@ -327,14 +333,12 @@ namespace BattleShip.UI
                         }
                         //ShipCreator.CreateShip(stype);
                     }
-
                 } while (placementIsBad == false);
-
                 Console.Clear();
-
-
             }
         }
+
+        //TODO Refactoring - Combine Player1 & 2 shooting & gameplay into a single code base. Class receives input on which player's turn it is.
 
         // actual shooting and gameplay
         public void GamePlay()
@@ -345,7 +349,6 @@ namespace BattleShip.UI
                 {
                     BoardUI.DisplayGameBoard(_player2Board);
                     string p1shot = "";//checks
-
 
                     Console.Write("{0}, Take a shot! : ", Player.Name1);
                     p1shot = Console.ReadLine();
@@ -399,7 +402,6 @@ namespace BattleShip.UI
                         _gameOver = true;
                         break;
                     }
-
                 }
 
                 while (!_isPlayerOnesTurn && _gameOver == false)
@@ -423,7 +425,7 @@ namespace BattleShip.UI
 
                     if (p2FireShotResponse.ShotStatus == ShotStatus.Hit)
                     {
-                        Console.WriteLine("Hit! (Press enter)");
+                        Console.WriteLine("You hit something! (Press enter)");
                         Console.ReadLine();
                         Console.Clear();
                         _isPlayerOnesTurn = true;
@@ -436,7 +438,7 @@ namespace BattleShip.UI
                     }
                     if (p2FireShotResponse.ShotStatus == ShotStatus.HitAndSunk)
                     {
-                        Console.WriteLine("Hit! You sunk the " + p2FireShotResponse.ShipImpacted + " (Press enter)");
+                        Console.WriteLine("Hit! You sunk your opponent's " + p2FireShotResponse.ShipImpacted + " (Press enter)");
                         Console.ReadLine();
                         Console.Clear();
                         _isPlayerOnesTurn = true;
@@ -449,29 +451,30 @@ namespace BattleShip.UI
                     }
                     if (p2FireShotResponse.ShotStatus == ShotStatus.Miss)
                     {
-                        Console.WriteLine("Miss! (Press enter)");
+                        Console.WriteLine("Your projectile splashes into the ocean, you missed! (Press enter)");
                         Console.ReadLine();
                         Console.Clear();
                         _isPlayerOnesTurn = true;
                     }
                     if (p2FireShotResponse.ShotStatus == ShotStatus.Victory)
                     {
-                        Console.WriteLine("Congrats, you won!! (Press enter)");
+                        Console.WriteLine("You have sunk all your opponent's ships, you win! (Press enter)");
                         Console.ReadLine();
                         Console.Clear();
                         _gameOver = true;
                     }
-
                 }
             }
             Console.Clear();
-            Console.Write("Play again? y/n Or Quit: ");
+            //Yay, someone won. Play again?
+            Console.Write("Play again? Type y or yes to play again. Type anything else to Quit: ");
             string playAgain = Console.ReadLine();
 
             if (playAgain == "y" || playAgain == "yes")
             {
                 NewGame goAgain = new NewGame();
-
+                //Restarting game.
+                Console.Clear();
                 goAgain.StartNewGame();
             }
             else

@@ -11,6 +11,11 @@ namespace BattleShip.UI
     {
         private static void Main(string[] args)
         {
+            //Setting game colors.
+            Console.BackgroundColor = ConsoleColor.DarkBlue;
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.Clear();
+
             GameFlow gf = new GameFlow();
             StartMenu sm = new StartMenu();
             //Player player1;
@@ -33,7 +38,6 @@ namespace BattleShip.UI
             Console.Clear();
 
             gf.Player2ShipPlacement();
-            Console.ReadLine();
             Console.Clear();
 
             gf.GamePlay();

@@ -19,20 +19,20 @@ namespace BattleShip.UI
         {
             //Board newBoard = new Board();
 
-            string Displaychar = "0";
+            string Displaychar = "~";
             //get Displaychar to change based on ship placement & shot history
 
             for (int i = 0; i < 10; i++)
             {
                 Console.Write("    {0}", _aToJ[i]);
-            }
+            }   //Generating across board.
 
             Console.Write("\n");
 
             for (int i = 0; i < 35; i++)
             {
                 Console.Write("__");
-            }
+            }   //Generating Border.
 
             // loop to get all values (including row 10) for values to fill coordinate object (necessary?)
 
@@ -48,8 +48,8 @@ namespace BattleShip.UI
                         Displaychar = "H";
                         Console.Write("  {0}    ", Displaychar);
 
-                        Console.ResetColor();
-                        
+                        Console.ForegroundColor = ConsoleColor.Yellow;
+
                     }
                     else if (playerBoard.ShotHistory.ContainsKey(coord) && playerBoard.ShotHistory[coord].Equals(ShotHistory.Miss))
                     {
@@ -57,12 +57,15 @@ namespace BattleShip.UI
                         Displaychar = "M";
                         Console.Write("  {0}    ", Displaychar);
 
-                        Console.ResetColor();
+                        Console.ForegroundColor = ConsoleColor.Yellow;
                     }
                     else //(playerBoard.ShotHistory.ContainsKey(coord) && playerBoard.ShotHistory.ContainsValue(ShotHistory.Unknown))
                     {
-                        Displaychar = " ";
+                        Console.ForegroundColor = ConsoleColor.White;
+                        Displaychar = "~";
                         Console.Write("  {0}    ", Displaychar);
+
+                        Console.ForegroundColor = ConsoleColor.Yellow;
                     }
                 }
                 Console.Write("\n  |");
@@ -80,7 +83,7 @@ namespace BattleShip.UI
                         Displaychar = "H";
                         Console.Write("  {0}    ", Displaychar);
 
-                        Console.ResetColor();
+                        Console.ForegroundColor = ConsoleColor.Yellow;
 
                     }
                     if (playerBoard.ShotHistory.ContainsKey(coord) && playerBoard.ShotHistory.ContainsValue(ShotHistory.Miss))
@@ -89,12 +92,15 @@ namespace BattleShip.UI
                         Displaychar = "M";
                         Console.Write("  {0}    ", Displaychar);
 
-                        Console.ResetColor();
+                        Console.ForegroundColor = ConsoleColor.Yellow;
                     }
                     else //(playerBoard.ShotHistory.ContainsKey(coord) && playerBoard.ShotHistory.ContainsValue(ShotHistory.Unknown))
                     {
-                        Displaychar = " ";
+                        Console.ForegroundColor = ConsoleColor.White;
+                        Displaychar = "~";
                         Console.Write("  {0}    ", Displaychar);
+
+                        Console.ForegroundColor = ConsoleColor.Yellow;
                     }
                     //Console.Write("  {0}    ", Displaychar);
                 }
