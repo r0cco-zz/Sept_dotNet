@@ -20,9 +20,6 @@ namespace BattleShip.UI
         private Board _player1Board = new Board();
         private Board _player2Board = new Board();
 
-        //added new board objects for ship display
-        private Board.ShipBoard 
-
         //private int[,] boardarray = new int[10, 10];
 
         private bool _isPlayerOnesTurn = true;
@@ -44,7 +41,7 @@ namespace BattleShip.UI
                 bool placementIsBad = false;
                 do
                 {
-                    BoardUI.DisplayGameBoard(_player1Board);
+                    BoardUI.DisplayShipBoard(_player1Board);
                     Console.Write("{0}, pick a coordinate for your {1} : ", Player.Name1, stype);
                     string shipplacecoord = Console.ReadLine();
 
@@ -198,7 +195,7 @@ namespace BattleShip.UI
                 bool placementIsBad = false;
                 do
                 {
-                    BoardUI.DisplayGameBoard(_player2Board);
+                    BoardUI.DisplayShipBoard(_player2Board);
                     Console.Write("{0}, pick a coordinate for your {1} : ", Player.Name2, stype);
                     string shipplacecoord = Console.ReadLine();
 

@@ -136,11 +136,25 @@ namespace BattleShip.BLL.GameLogic
             {
                 var currentCoordinate = new Coordinate(i, coordinate.YCoordinate);
 
+                //I  made this loop to prevent partial ships being left on the board during placement, if the ship placement was bad.
                 if (!IsValidCoordinate(currentCoordinate))
+                {
+                    foreach (var badvalue in ShipHistory.Where(rv => rv.Value == newShip.ShipType).ToList())
+                    {
+                        ShipHistory.Remove(badvalue.Key);
+                    }
                     return ShipPlacement.NotEnoughSpace;
+                }
 
+                //same loop again
                 if (OverlapsAnotherShip(currentCoordinate))
+                {
+                    foreach (var badvalue in ShipHistory.Where(rv => rv.Value == newShip.ShipType).ToList())
+                    {
+                        ShipHistory.Remove(badvalue.Key);
+                    }
                     return ShipPlacement.Overlap;
+                }
 
                 newShip.BoardPositions[positionIndex] = currentCoordinate;
                 //adding dictionary entry for coordinate as ship is being built
@@ -162,11 +176,25 @@ namespace BattleShip.BLL.GameLogic
             {
                 var currentCoordinate = new Coordinate(i, coordinate.YCoordinate);
 
+                //I  made this loop to prevent partial ships being left on the board during placement, if the ship placement was bad.
                 if (!IsValidCoordinate(currentCoordinate))
+                {
+                    foreach (var badvalue in ShipHistory.Where(rv => rv.Value == newShip.ShipType).ToList())
+                    {
+                        ShipHistory.Remove(badvalue.Key);
+                    }
                     return ShipPlacement.NotEnoughSpace;
+                }
 
+                //same loop again
                 if (OverlapsAnotherShip(currentCoordinate))
+                {
+                    foreach (var badvalue in ShipHistory.Where(rv => rv.Value == newShip.ShipType).ToList())
+                    {
+                        ShipHistory.Remove(badvalue.Key);
+                    }
                     return ShipPlacement.Overlap;
+                }
 
                 newShip.BoardPositions[positionIndex] = currentCoordinate;
                 //adding dictionary entry for coordinate as ship is being built
@@ -188,11 +216,25 @@ namespace BattleShip.BLL.GameLogic
             {
                 var currentCoordinate = new Coordinate(coordinate.XCoordinate, i);
 
+                //I  made this loop to prevent partial ships being left on the board during placement, if the ship placement was bad.
                 if (!IsValidCoordinate(currentCoordinate))
+                {
+                    foreach (var badvalue in ShipHistory.Where(rv => rv.Value == newShip.ShipType).ToList())
+                    {
+                        ShipHistory.Remove(badvalue.Key);
+                    }
                     return ShipPlacement.NotEnoughSpace;
+                }
 
+                //same loop again
                 if (OverlapsAnotherShip(currentCoordinate))
+                {
+                    foreach (var badvalue in ShipHistory.Where(rv => rv.Value == newShip.ShipType).ToList())
+                    {
+                        ShipHistory.Remove(badvalue.Key);
+                    }
                     return ShipPlacement.Overlap;
+                }
 
                 newShip.BoardPositions[positionIndex] = currentCoordinate;
                 //adding dictionary entry for coordinate as ship is being built
@@ -213,11 +255,25 @@ namespace BattleShip.BLL.GameLogic
             for (int i = coordinate.YCoordinate; i < maxY; i++)
             {
                 var currentCoordinate = new Coordinate(coordinate.XCoordinate, i);
+                //I  made this loop to prevent partial ships being left on the board during placement, if the ship placement was bad.
                 if (!IsValidCoordinate(currentCoordinate))
+                {
+                    foreach (var badvalue in ShipHistory.Where(rv => rv.Value == newShip.ShipType).ToList())
+                    {
+                        ShipHistory.Remove(badvalue.Key);
+                    }
                     return ShipPlacement.NotEnoughSpace;
+                }
 
+                //same loop again
                 if (OverlapsAnotherShip(currentCoordinate))
+                {
+                    foreach (var badvalue in ShipHistory.Where(rv => rv.Value == newShip.ShipType).ToList())
+                    {
+                        ShipHistory.Remove(badvalue.Key);
+                    }
                     return ShipPlacement.Overlap;
+                }
 
                 newShip.BoardPositions[positionIndex] = currentCoordinate;
                 //adding dictionary entry for coordinate as ship is being built
