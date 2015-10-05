@@ -30,7 +30,7 @@ namespace BattleShip.UI
         {
 
             //TODO Refactoring - Implement Generic PlayerShipPlacement. 
-                //TODO HowTo: Create class to accept current player turn. Execute, return done. If player is player 2, move on.
+            //TODO HowTo: Create class to accept current player turn. Execute, return done. If player is player 2, move on.
             //TODO Create additional classes to simplify workflow: PlaceShipRequest workflow.
 
             // display empty game board for player1 (I put this in the loop)
@@ -41,9 +41,27 @@ namespace BattleShip.UI
                 bool placementIsBad = false;
                 do
                 {
-                    BoardUI.DisplayShipBoard(_player1Board);
-                    Console.Write("{0}, pick a coordinate for your {1} : ", Player.Name1, stype);
-                    string shipplacecoord = Console.ReadLine();
+                    BoardUI.DisplayGameBoard(_player1Board);
+
+                    string shipplacecoord = "";
+
+                    //Old coordinate check.
+                    //Console.Write("{0}, pick a coordinate for your {1} : ", Player.Name1, stype);
+                    //string shipplacecoord = Console.ReadLine();
+
+                    //Testing if valid input
+                    bool coordIsValid = false;
+                    do
+                    {
+                        IsPlayercoordValid IsItValid = new IsPlayercoordValid();
+
+                        Console.Write("{0}, pick a coordinate for your {1} : ", Player.Name1, stype);
+                        shipplacecoord = Console.ReadLine();
+
+                        coordIsValid = IsItValid.IsItGood(shipplacecoord);
+
+                    } while (coordIsValid == false);
+                    //end of testing
 
                     string xAsLetter = shipplacecoord.Substring(0, 1);
                     int shipX = LetterConverter.ConvertToNumber(xAsLetter); //Convert 1st char from player input to int.
@@ -52,15 +70,15 @@ namespace BattleShip.UI
                     Coordinate shipcoord = new Coordinate(shipX, shipY);
 
                     // and then, asking for ship direction
-                    Console.Write("{0}, Enter a direction (up, down, left, right) for your {1} : ",
-                        Player.Name1, stype);
+                    Console.Write("{0}, Enter a direction (up, down, left, right) for your {1} (length {2}) : ",
+                        Player.Name1, stype, "ship length");
                     string shipPlacementDirection = Console.ReadLine();
                     //bool _isShipPlaced = false;
 
                     IsDirectionValid IsDirInputValid = new IsDirectionValid();
 
                     int InputResponse = IsDirInputValid.WhatIsDirection(shipPlacementDirection);
-                    
+
                     if (InputResponse == 1)
                     {
                         PlaceShipRequest shipRequest = new PlaceShipRequest
@@ -195,19 +213,36 @@ namespace BattleShip.UI
                 bool placementIsBad = false;
                 do
                 {
-                    BoardUI.DisplayShipBoard(_player2Board);
-                    Console.Write("{0}, pick a coordinate for your {1} : ", Player.Name2, stype);
-                    string shipplacecoord = Console.ReadLine();
+                    BoardUI.DisplayGameBoard(_player2Board);
+
+                    //Testing if valid input
+                    bool coordIsValid = false;
+                    string shipplacecoord = "";
+                    do
+                    {
+                        IsPlayercoordValid IsItValid = new IsPlayercoordValid();
+
+                        Console.Write("{0}, pick a coordinate for your {1} : ", Player.Name2, stype);
+                        shipplacecoord = Console.ReadLine();
+
+                        coordIsValid = IsItValid.IsItGood(shipplacecoord);
+
+                    } while (coordIsValid == false);
+                    //end of testing
+
+                    //Console.Write("{0}, pick a coordinate for your {1} : ", Player.Name2, stype);
+                    //shipplacecoord = Console.ReadLine();
 
                     string xAsLetter = shipplacecoord.Substring(0, 1);
                     int shipX = LetterConverter.ConvertToNumber(xAsLetter); //Convert 1st char from player input to int.
+                    //TODO Bug, ensure correct length.
                     int shipY = int.Parse(shipplacecoord.Substring(1)); //Assign 2nd coord.
 
                     Coordinate shipcoord = new Coordinate(shipX, shipY);
 
                     // and then, asking for ship direction
-                    Console.Write("{0}, Enter a direction (up, down, left, right) for your {1} : ",
-                        Player.Name2, stype);
+                    Console.Write("{0}, Enter a direction (up, down, left, right) for your {1} (length {2}) : ",
+                        Player.Name2, stype, "ship length");
                     string shipPlacementDirection = Console.ReadLine();
 
                     IsDirectionValid IsDirInputValid = new IsDirectionValid();
@@ -222,7 +257,7 @@ namespace BattleShip.UI
                             Direction = ShipDirection.Up,
                             ShipType = stype
                         };
-                        var WhereIsShip =_player2Board.PlaceShip(shipRequest);
+                        var WhereIsShip = _player2Board.PlaceShip(shipRequest);
                         //Refactor for class
                         if (WhereIsShip == ShipPlacement.NotEnoughSpace)
                         {
@@ -347,8 +382,22 @@ namespace BattleShip.UI
                     BoardUI.DisplayGameBoard(_player2Board);
                     string p1shot = "";//checks
 
-                    Console.Write("{0}, Take a shot! : ", Player.Name1);
-                    p1shot = Console.ReadLine();
+                    //Testing if valid input
+                    bool coordIsValid = false;
+                    do
+                    {
+                        IsPlayercoordValid IsItValid = new IsPlayercoordValid();
+
+                        Console.Write("{0}, Take a shot! : ", Player.Name1);
+                        p1shot = Console.ReadLine();
+
+                        coordIsValid = IsItValid.IsItGood(p1shot);
+
+                    } while (coordIsValid == false);
+                    //end of testing
+
+                    //Console.Write("{0}, Take a shot! : ", Player.Name1);
+                    //p1shot = Console.ReadLine();
 
                     string p1shotx = p1shot.Substring(0, 1);
                     int p1shotxasint = LetterConverter.ConvertToNumber(p1shotx);
@@ -406,15 +455,32 @@ namespace BattleShip.UI
                     BoardUI.DisplayGameBoard(_player1Board);
 
                     string p2shot = "";
+                    string p2shotx = "";
                     //checks
-                    
+
+                    //Testing if valid input
+                    bool coordIsValid = false;
+                    do
+                    {
+                        IsPlayercoordValid IsItValid = new IsPlayercoordValid();
+
                         Console.Write("{0}, Take a shot! : ", Player.Name2);
                         p2shot = Console.ReadLine();
 
-                    string p2shotx = p2shot.Substring(0, 1);
+                        coordIsValid = IsItValid.IsItGood(p2shot);
+
+                    } while (coordIsValid == false);
+                    //end of testing
+
+                    //do
+                    //{
+                    //    Console.Write("{0}, Take a shot! : ", Player.Name2);
+                    //    p2shot = Console.ReadLine();
+                    //} while (p2shotx.Length > 2);
+                    p2shotx = p2shot.Substring(0, 1);
                     int p2shotxasint = LetterConverter.ConvertToNumber(p2shotx);
                     int p2shoty = int.Parse(p2shot.Substring(1));
-                    //Scott Changes
+
 
                     Coordinate shotcoord = new Coordinate(p2shotxasint, p2shoty);
 

@@ -11,7 +11,7 @@ using BattleShip.BLL.Ships;
 
 namespace BattleShip.UI
 {
-    internal class BoardUI
+    class BoardUI
     {
         private static readonly string[] _aToJ = {" A ", " B ", " C ", " D ", " E ", " F ", " G ", " H ", " I ", " J "};
 
@@ -25,14 +25,14 @@ namespace BattleShip.UI
             for (int i = 0; i < 10; i++)
             {
                 Console.Write("    {0}", _aToJ[i]);
-            } //Generating across board.
+            }   //Generating across board.
 
             Console.Write("\n");
 
             for (int i = 0; i < 35; i++)
             {
                 Console.Write("__");
-            } //Generating Border.
+            }   //Generating Border.
 
             // loop to get all values (including row 10) for values to fill coordinate object (necessary?)
 
@@ -41,9 +41,8 @@ namespace BattleShip.UI
                 Console.Write("\n" + (i + 1) + " |");
                 for (int j = 0; j < 10; j++) //10
                 {
-                    Coordinate coord = new Coordinate(j + 1, i + 1);
-                    if (playerBoard.ShotHistory.ContainsKey(coord) &&
-                        playerBoard.ShotHistory[coord].Equals(ShotHistory.Hit)) //Make sure Shot is valid && is a hit.
+                    Coordinate coord = new Coordinate(j+1, i+1);
+                    if (playerBoard.ShotHistory.ContainsKey(coord) && playerBoard.ShotHistory[coord].Equals(ShotHistory.Hit)) //Make sure Shot is valid && is a hit.
                     {
                         Console.ForegroundColor = ConsoleColor.Red;
                         Displaychar = "H";
@@ -52,8 +51,7 @@ namespace BattleShip.UI
                         Console.ForegroundColor = ConsoleColor.Yellow;
 
                     }
-                    else if (playerBoard.ShotHistory.ContainsKey(coord) &&
-                             playerBoard.ShotHistory[coord].Equals(ShotHistory.Miss))
+                    else if (playerBoard.ShotHistory.ContainsKey(coord) && playerBoard.ShotHistory[coord].Equals(ShotHistory.Miss))
                     {
                         Console.ForegroundColor = ConsoleColor.Yellow;
                         Displaychar = "M";
@@ -61,8 +59,7 @@ namespace BattleShip.UI
 
                         Console.ForegroundColor = ConsoleColor.Yellow;
                     }
-                    else
-                    //(playerBoard.ShotHistory.ContainsKey(coord) && playerBoard.ShotHistory.ContainsValue(ShotHistory.Unknown))
+                    else //(playerBoard.ShotHistory.ContainsKey(coord) && playerBoard.ShotHistory.ContainsValue(ShotHistory.Unknown))
                     {
                         Console.ForegroundColor = ConsoleColor.White;
                         Displaychar = "~";
@@ -79,9 +76,8 @@ namespace BattleShip.UI
                 Console.Write("\n" + (i + 1) + "|");
                 for (int j = 0; j < 10; j++) //10
                 {
-                    Coordinate coord = new Coordinate(j + 1, i + 1);
-                    if (playerBoard.ShotHistory.ContainsKey(coord) &&
-                        playerBoard.ShotHistory[coord].Equals(ShotHistory.Hit))
+                    Coordinate coord = new Coordinate(j+1, i+1);
+                    if (playerBoard.ShotHistory.ContainsKey(coord) && playerBoard.ShotHistory.ContainsValue(ShotHistory.Hit))
                     {
                         Console.ForegroundColor = ConsoleColor.Red;
                         Displaychar = "H";
@@ -90,8 +86,7 @@ namespace BattleShip.UI
                         Console.ForegroundColor = ConsoleColor.Yellow;
 
                     }
-                    if (playerBoard.ShotHistory.ContainsKey(coord) &&
-                        playerBoard.ShotHistory[coord].Equals(ShotHistory.Miss))
+                    if (playerBoard.ShotHistory.ContainsKey(coord) && playerBoard.ShotHistory.ContainsValue(ShotHistory.Miss))
                     {
                         Console.ForegroundColor = ConsoleColor.Yellow;
                         Displaychar = "M";
@@ -99,8 +94,7 @@ namespace BattleShip.UI
 
                         Console.ForegroundColor = ConsoleColor.Yellow;
                     }
-                    else
-                    //(playerBoard.ShotHistory.ContainsKey(coord) && playerBoard.ShotHistory.ContainsValue(ShotHistory.Unknown))
+                    else //(playerBoard.ShotHistory.ContainsKey(coord) && playerBoard.ShotHistory.ContainsValue(ShotHistory.Unknown))
                     {
                         Console.ForegroundColor = ConsoleColor.White;
                         Displaychar = "~";
@@ -112,157 +106,6 @@ namespace BattleShip.UI
                 }
                 Console.WriteLine("\n  |");
 
-            }
-        }
-
-        public static void DisplayShipBoard(Board playerBoard)
-        {
-            string Displaychar = "~";
-
-            for (int i = 0; i < 10; i++)
-            {
-                Console.Write("    {0}", _aToJ[i]);
-            } //Generating across board.
-
-            Console.Write("\n");
-
-            for (int i = 0; i < 35; i++)
-            {
-                Console.Write("__");
-            } //Generating Border.
-
-            // loop to get all values (including row 10) for values to fill coordinate object (necessary?)
-
-            for (int i = 0; i < 9; i++) //9
-            {
-                Console.Write("\n" + (i + 1) + " |");
-                for (int j = 0; j < 10; j++) //10
-                {
-                    Coordinate coord = new Coordinate(j + 1, i + 1);
-                    if (playerBoard.ShipHistory.ContainsKey(coord) &&
-                        playerBoard.ShipHistory[coord].Equals(ShipType.Battleship))
-                        //Make sure Shot is valid && is a hit.
-                    {
-                        Console.ForegroundColor = ConsoleColor.DarkGray;
-                        Displaychar = "B";
-                        Console.Write("  {0}    ", Displaychar);
-
-                        Console.ForegroundColor = ConsoleColor.Yellow;
-
-                    }
-                    else if (playerBoard.ShipHistory.ContainsKey(coord) &&
-                             playerBoard.ShipHistory[coord].Equals(ShipType.Carrier))
-                    {
-                        Console.ForegroundColor = ConsoleColor.DarkGray;
-                        Displaychar = "C";
-                        Console.Write("  {0}    ", Displaychar);
-
-                        Console.ForegroundColor = ConsoleColor.Yellow;
-                    }
-                    else if (playerBoard.ShipHistory.ContainsKey(coord) &&
-                             playerBoard.ShipHistory[coord].Equals(ShipType.Cruiser))
-                    {
-                        Console.ForegroundColor = ConsoleColor.DarkGray;
-                        Displaychar = "C";
-                        Console.Write("  {0}    ", Displaychar);
-
-                        Console.ForegroundColor = ConsoleColor.Yellow;
-                    }
-                    else if (playerBoard.ShipHistory.ContainsKey(coord) &&
-                             playerBoard.ShipHistory[coord].Equals(ShipType.Destroyer))
-                    {
-                        Console.ForegroundColor = ConsoleColor.DarkGray;
-                        Displaychar = "D";
-                        Console.Write("  {0}    ", Displaychar);
-
-                        Console.ForegroundColor = ConsoleColor.Yellow;
-                    }
-                    else if (playerBoard.ShipHistory.ContainsKey(coord) &&
-                             playerBoard.ShipHistory[coord].Equals(ShipType.Submarine))
-                    {
-                        Console.ForegroundColor = ConsoleColor.DarkGray;
-                        Displaychar = "S";
-                        Console.Write("  {0}    ", Displaychar);
-
-                        Console.ForegroundColor = ConsoleColor.Yellow;
-                    }
-                    else
-                    {
-                        Console.ForegroundColor = ConsoleColor.White;
-                        Displaychar = "~";
-                        Console.Write("  {0}    ", Displaychar);
-
-                        Console.ForegroundColor = ConsoleColor.Yellow;
-                    }
-                }
-
-                Console.Write("\n  |");
-            }
-            // loop again for row 10 because of the extra char in the label
-            for (int i = 9; i < 10; i++) //10
-            {
-                Console.Write("\n" + (i + 1) + "|");
-                for (int j = 0; j < 10; j++) //10
-                {
-                    Coordinate coord = new Coordinate(j + 1, i + 1);
-                    if (playerBoard.ShipHistory.ContainsKey(coord) &&
-                        playerBoard.ShipHistory[coord].Equals(ShipType.Battleship))
-                        //Make sure Shot is valid && is a hit.
-                    {
-                        Console.ForegroundColor = ConsoleColor.DarkGray;
-                        Displaychar = "B";
-                        Console.Write("  {0}    ", Displaychar);
-
-                        Console.ForegroundColor = ConsoleColor.Yellow;
-
-                    }
-                    else if (playerBoard.ShipHistory.ContainsKey(coord) &&
-                             playerBoard.ShipHistory[coord].Equals(ShipType.Carrier))
-                    {
-                        Console.ForegroundColor = ConsoleColor.DarkGray;
-                        Displaychar = "C";
-                        Console.Write("  {0}    ", Displaychar);
-
-                        Console.ForegroundColor = ConsoleColor.Yellow;
-                    }
-                    else if (playerBoard.ShipHistory.ContainsKey(coord) &&
-                             playerBoard.ShipHistory[coord].Equals(ShipType.Cruiser))
-                    {
-                        Console.ForegroundColor = ConsoleColor.DarkGray;
-                        Displaychar = "C";
-                        Console.Write("  {0}    ", Displaychar);
-
-                        Console.ForegroundColor = ConsoleColor.Yellow;
-                    }
-                    else if (playerBoard.ShipHistory.ContainsKey(coord) &&
-                             playerBoard.ShipHistory[coord].Equals(ShipType.Destroyer))
-                    {
-                        Console.ForegroundColor = ConsoleColor.DarkGray;
-                        Displaychar = "D";
-                        Console.Write("  {0}    ", Displaychar);
-
-                        Console.ForegroundColor = ConsoleColor.Yellow;
-                    }
-                    else if (playerBoard.ShipHistory.ContainsKey(coord) &&
-                             playerBoard.ShipHistory[coord].Equals(ShipType.Submarine))
-                    {
-                        Console.ForegroundColor = ConsoleColor.DarkGray;
-                        Displaychar = "S";
-                        Console.Write("  {0}    ", Displaychar);
-
-                        Console.ForegroundColor = ConsoleColor.Yellow;
-                    }
-                    else
-                    {
-                        Console.ForegroundColor = ConsoleColor.White;
-                        Displaychar = "~";
-                        Console.Write("  {0}    ", Displaychar);
-
-                        Console.ForegroundColor = ConsoleColor.Yellow;
-                    }
-                }
-
-                Console.Write("\n  |");
             }
         }
     }

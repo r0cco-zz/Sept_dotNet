@@ -9,19 +9,12 @@ namespace BattleShip.BLL.GameLogic
 {
     public class Board
     {
-        //trying out a ship dictionary here...
-        public Dictionary<Coordinate, ShipType> ShipHistory;
-        //end changes
-
         public Dictionary<Coordinate, ShotHistory> ShotHistory;
         private Ship[] _ships;
         private int _currentShipIndex;
 
         public Board()
         {
-            //added dictionary to Board object
-            ShipHistory = new Dictionary<Coordinate, ShipType>();
-
             ShotHistory = new Dictionary<Coordinate, ShotHistory>();
             _ships = new Ship[5];
             _currentShipIndex = 0;
@@ -136,29 +129,13 @@ namespace BattleShip.BLL.GameLogic
             {
                 var currentCoordinate = new Coordinate(i, coordinate.YCoordinate);
 
-                //I  made this loop to prevent partial ships being left on the board during placement, if the ship placement was bad.
                 if (!IsValidCoordinate(currentCoordinate))
-                {
-                    foreach (var badvalue in ShipHistory.Where(rv => rv.Value == newShip.ShipType).ToList())
-                    {
-                        ShipHistory.Remove(badvalue.Key);
-                    }
                     return ShipPlacement.NotEnoughSpace;
-                }
 
-                //same loop again
                 if (OverlapsAnotherShip(currentCoordinate))
-                {
-                    foreach (var badvalue in ShipHistory.Where(rv => rv.Value == newShip.ShipType).ToList())
-                    {
-                        ShipHistory.Remove(badvalue.Key);
-                    }
                     return ShipPlacement.Overlap;
-                }
 
                 newShip.BoardPositions[positionIndex] = currentCoordinate;
-                //adding dictionary entry for coordinate as ship is being built
-                ShipHistory.Add(currentCoordinate, newShip.ShipType);
                 positionIndex++;
             }
 
@@ -176,29 +153,13 @@ namespace BattleShip.BLL.GameLogic
             {
                 var currentCoordinate = new Coordinate(i, coordinate.YCoordinate);
 
-                //I  made this loop to prevent partial ships being left on the board during placement, if the ship placement was bad.
                 if (!IsValidCoordinate(currentCoordinate))
-                {
-                    foreach (var badvalue in ShipHistory.Where(rv => rv.Value == newShip.ShipType).ToList())
-                    {
-                        ShipHistory.Remove(badvalue.Key);
-                    }
                     return ShipPlacement.NotEnoughSpace;
-                }
 
-                //same loop again
                 if (OverlapsAnotherShip(currentCoordinate))
-                {
-                    foreach (var badvalue in ShipHistory.Where(rv => rv.Value == newShip.ShipType).ToList())
-                    {
-                        ShipHistory.Remove(badvalue.Key);
-                    }
                     return ShipPlacement.Overlap;
-                }
 
                 newShip.BoardPositions[positionIndex] = currentCoordinate;
-                //adding dictionary entry for coordinate as ship is being built
-                ShipHistory.Add(currentCoordinate, newShip.ShipType);
                 positionIndex++;
             }
 
@@ -216,29 +177,13 @@ namespace BattleShip.BLL.GameLogic
             {
                 var currentCoordinate = new Coordinate(coordinate.XCoordinate, i);
 
-                //I  made this loop to prevent partial ships being left on the board during placement, if the ship placement was bad.
                 if (!IsValidCoordinate(currentCoordinate))
-                {
-                    foreach (var badvalue in ShipHistory.Where(rv => rv.Value == newShip.ShipType).ToList())
-                    {
-                        ShipHistory.Remove(badvalue.Key);
-                    }
                     return ShipPlacement.NotEnoughSpace;
-                }
 
-                //same loop again
                 if (OverlapsAnotherShip(currentCoordinate))
-                {
-                    foreach (var badvalue in ShipHistory.Where(rv => rv.Value == newShip.ShipType).ToList())
-                    {
-                        ShipHistory.Remove(badvalue.Key);
-                    }
                     return ShipPlacement.Overlap;
-                }
 
-                newShip.BoardPositions[positionIndex] = currentCoordinate;
-                //adding dictionary entry for coordinate as ship is being built
-                ShipHistory.Add(currentCoordinate, newShip.ShipType);
+                newShip.BoardPositions[positionIndex] = currentCoordinate; 
                 positionIndex++;
             }
 
@@ -255,29 +200,13 @@ namespace BattleShip.BLL.GameLogic
             for (int i = coordinate.YCoordinate; i < maxY; i++)
             {
                 var currentCoordinate = new Coordinate(coordinate.XCoordinate, i);
-                //I  made this loop to prevent partial ships being left on the board during placement, if the ship placement was bad.
                 if (!IsValidCoordinate(currentCoordinate))
-                {
-                    foreach (var badvalue in ShipHistory.Where(rv => rv.Value == newShip.ShipType).ToList())
-                    {
-                        ShipHistory.Remove(badvalue.Key);
-                    }
                     return ShipPlacement.NotEnoughSpace;
-                }
 
-                //same loop again
                 if (OverlapsAnotherShip(currentCoordinate))
-                {
-                    foreach (var badvalue in ShipHistory.Where(rv => rv.Value == newShip.ShipType).ToList())
-                    {
-                        ShipHistory.Remove(badvalue.Key);
-                    }
                     return ShipPlacement.Overlap;
-                }
 
                 newShip.BoardPositions[positionIndex] = currentCoordinate;
-                //adding dictionary entry for coordinate as ship is being built
-                ShipHistory.Add(currentCoordinate, newShip.ShipType);
                 positionIndex++;
             }
 
