@@ -52,8 +52,8 @@ namespace BattleShip.UI
                     Coordinate shipcoord = new Coordinate(shipX, shipY);
 
                     // and then, asking for ship direction
-                    Console.Write("{0}, Enter a direction (up, down, left, right) for your {1} (length {2}) : ",
-                        Player.Name1, stype, "ship length");
+                    Console.Write("{0}, Enter a direction (up, down, left, right) for your {1} : ",
+                        Player.Name1, stype);
                     string shipPlacementDirection = Console.ReadLine();
                     //bool _isShipPlaced = false;
 
@@ -206,8 +206,8 @@ namespace BattleShip.UI
                     Coordinate shipcoord = new Coordinate(shipX, shipY);
 
                     // and then, asking for ship direction
-                    Console.Write("{0}, Enter a direction (up, down, left, right) for your {1} (length {2}) : ",
-                        Player.Name2, stype, "ship length");
+                    Console.Write("{0}, Enter a direction (up, down, left, right) for your {1} : ",
+                        Player.Name2, stype);
                     string shipPlacementDirection = Console.ReadLine();
 
                     IsDirectionValid IsDirInputValid = new IsDirectionValid();
