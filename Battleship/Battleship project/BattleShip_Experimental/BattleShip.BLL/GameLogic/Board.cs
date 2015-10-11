@@ -9,12 +9,16 @@ namespace BattleShip.BLL.GameLogic
 {
     public class Board
     {
+        public Dictionary<Coordinate, ShipType> ShipHistory;
+
         public Dictionary<Coordinate, ShotHistory> ShotHistory;
         private Ship[] _ships;
         private int _currentShipIndex;
 
         public Board()
         {
+            ShipHistory = new Dictionary<Coordinate, ShipType>();
+
             ShotHistory = new Dictionary<Coordinate, ShotHistory>();
             _ships = new Ship[5];
             _currentShipIndex = 0;
@@ -130,12 +134,27 @@ namespace BattleShip.BLL.GameLogic
                 var currentCoordinate = new Coordinate(i, coordinate.YCoordinate);
 
                 if (!IsValidCoordinate(currentCoordinate))
+                {
+                    foreach (var badvalue in ShipHistory.Where(rv => rv.Value == newShip.ShipType).ToList())
+                    {
+                        ShipHistory.Remove(badvalue.Key);
+                    }
+
                     return ShipPlacement.NotEnoughSpace;
+                }
 
                 if (OverlapsAnotherShip(currentCoordinate))
+                {
+                    foreach (var badvalue in ShipHistory.Where(rv => rv.Value == newShip.ShipType).ToList())
+                    {
+                        ShipHistory.Remove(badvalue.Key);
+                    }
+
                     return ShipPlacement.Overlap;
+                }
 
                 newShip.BoardPositions[positionIndex] = currentCoordinate;
+                ShipHistory.Add(currentCoordinate, newShip.ShipType);
                 positionIndex++;
             }
 
@@ -154,12 +173,25 @@ namespace BattleShip.BLL.GameLogic
                 var currentCoordinate = new Coordinate(i, coordinate.YCoordinate);
 
                 if (!IsValidCoordinate(currentCoordinate))
-                    return ShipPlacement.NotEnoughSpace;
+                {
+                    foreach (var badvalue in ShipHistory.Where(rv => rv.Value == newShip.ShipType).ToList())
+                    {
+                        ShipHistory.Remove(badvalue.Key);
+                    }
+                        return ShipPlacement.NotEnoughSpace;
+                }
 
                 if (OverlapsAnotherShip(currentCoordinate))
-                    return ShipPlacement.Overlap;
+                {
+                    foreach (var badvalue in ShipHistory.Where(rv => rv.Value == newShip.ShipType).ToList())
+                    {
+                        ShipHistory.Remove(badvalue.Key);
+                    }
+                        return ShipPlacement.Overlap;
+                }
 
                 newShip.BoardPositions[positionIndex] = currentCoordinate;
+                ShipHistory.Add(currentCoordinate, newShip.ShipType);
                 positionIndex++;
             }
 
@@ -178,12 +210,25 @@ namespace BattleShip.BLL.GameLogic
                 var currentCoordinate = new Coordinate(coordinate.XCoordinate, i);
 
                 if (!IsValidCoordinate(currentCoordinate))
-                    return ShipPlacement.NotEnoughSpace;
+                {
+                    foreach (var badvalue in ShipHistory.Where(rv => rv.Value == newShip.ShipType).ToList())
+                    {
+                        ShipHistory.Remove(badvalue.Key);
+                    }
+                        return ShipPlacement.NotEnoughSpace;
+                }
 
                 if (OverlapsAnotherShip(currentCoordinate))
-                    return ShipPlacement.Overlap;
+                {
+                    foreach (var badvalue in ShipHistory.Where(rv => rv.Value == newShip.ShipType).ToList())
+                    {
+                        ShipHistory.Remove(badvalue.Key);
+                    }
+                        return ShipPlacement.Overlap;
+                }
 
-                newShip.BoardPositions[positionIndex] = currentCoordinate; 
+                newShip.BoardPositions[positionIndex] = currentCoordinate;
+                ShipHistory.Add(currentCoordinate, newShip.ShipType);
                 positionIndex++;
             }
 
@@ -201,12 +246,25 @@ namespace BattleShip.BLL.GameLogic
             {
                 var currentCoordinate = new Coordinate(coordinate.XCoordinate, i);
                 if (!IsValidCoordinate(currentCoordinate))
-                    return ShipPlacement.NotEnoughSpace;
+                {
+                    foreach (var badvalue in ShipHistory.Where(rv => rv.Value == newShip.ShipType).ToList())
+                    {
+                        ShipHistory.Remove(badvalue.Key);
+                    }
+                        return ShipPlacement.NotEnoughSpace;
+                }
 
                 if (OverlapsAnotherShip(currentCoordinate))
-                    return ShipPlacement.Overlap;
+                {
+                    foreach (var badvalue in ShipHistory.Where(rv => rv.Value == newShip.ShipType).ToList())
+                    {
+                        ShipHistory.Remove(badvalue.Key);
+                    }
+                        return ShipPlacement.Overlap;
+                }
 
                 newShip.BoardPositions[positionIndex] = currentCoordinate;
+                ShipHistory.Add(currentCoordinate, newShip.ShipType);
                 positionIndex++;
             }
 

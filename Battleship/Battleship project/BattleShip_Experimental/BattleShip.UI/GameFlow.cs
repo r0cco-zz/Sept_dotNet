@@ -41,7 +41,7 @@ namespace BattleShip.UI
                 bool placementIsBad = false;
                 do
                 {
-                    BoardUI.DisplayGameBoard(_player1Board);
+                    BoardUI.DisplayShipBoard(_player1Board);
 
                     string shipplacecoord = "";
 
@@ -213,7 +213,7 @@ namespace BattleShip.UI
                 bool placementIsBad = false;
                 do
                 {
-                    BoardUI.DisplayGameBoard(_player2Board);
+                    BoardUI.DisplayShipBoard(_player2Board);
 
                     //Testing if valid input
                     bool coordIsValid = false;
