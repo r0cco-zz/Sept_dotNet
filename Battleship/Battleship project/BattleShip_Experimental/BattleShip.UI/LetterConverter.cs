@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BattleShip.UI
 {
-    class LetterConverter
+    public class LetterConverter
     {
         public static int ConvertToNumber(string xAxisGuess)
         {
