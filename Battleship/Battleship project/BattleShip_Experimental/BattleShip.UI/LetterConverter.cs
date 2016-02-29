@@ -10,47 +10,31 @@ namespace BattleShip.UI
     {
         public static int ConvertToNumber(string xAxisGuess)
         {
-            if (xAxisGuess.ToLower() == "a")
+            switch (xAxisGuess.ToLower())
             {
-                return 1;
+                case "a":
+                    return 1;
+                case "b":
+                    return 2;
+                case "c":
+                    return 3;
+                case "d":
+                    return 4;
+                case "e":
+                    return 5;
+                case "f":
+                    return 6;
+                case "g":
+                    return 7;
+                case "h":
+                    return 8;
+                case "i":
+                    return 9;
+                case "j":
+                    return 10;
+                default:
+                    return 42;
             }
-            if (xAxisGuess.ToLower() == "b")
-            {
-                return 2;
-            }
-            if (xAxisGuess.ToLower() == "c")
-            {
-                return 3;
-            }
-            if (xAxisGuess.ToLower() == "d")
-            {
-                return 4;
-            }
-            if (xAxisGuess.ToLower() == "e")
-            {
-                return 5;
-            }
-            if (xAxisGuess.ToLower() == "f")
-            {
-                return 6;
-            }
-            if (xAxisGuess.ToLower() == "g")
-            {
-                return 7;
-            }
-            if (xAxisGuess.ToLower() == "h")
-            {
-                return 8;
-            }
-            if (xAxisGuess.ToLower() == "i")
-            {
-                return 9;
-            }
-            if (xAxisGuess.ToLower() == "j")
-            {
-                return 10;
-            }
-            return 42;
         }
     }
 }

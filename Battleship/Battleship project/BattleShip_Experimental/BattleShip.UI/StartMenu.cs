@@ -22,7 +22,7 @@ namespace BattleShip.UI
 
             Console.WriteLine("Player 1, What is your name? : ");
             string player1Name = Console.ReadLine();
-            if (player1Name == "")
+            if (player1Name == String.Empty)
             {
                 player1Name = "Player1";
             }
@@ -31,7 +31,7 @@ namespace BattleShip.UI
             Player.Name1 = player1Name;
             Console.Write("Player 2, what is your name? : ");
             string player2Name = Console.ReadLine();
-            if (player2Name == "")
+            if (player2Name == String.Empty)
             {
                 player2Name = "Player2";
             }
